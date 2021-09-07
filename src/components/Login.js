@@ -155,25 +155,37 @@ home = (e) => {
     const err = this.state.err;
     return (
       <div >
-                  <Navbar bg="dark" variant="dark" fixed="top">
-                    <Container>
-                      <img src="/images/logosymbol.png" width="30" height="30"/>
-                        <Navbar.Brand href="#home"> Recruit Right</Navbar.Brand>
-                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                        <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="me-auto">
-                            <Nav.Link>|</Nav.Link>
-                            <Nav.Link onClick={this.home}>Home</Nav.Link>
-                        </Nav>
-                        <Nav>
-                        <Nav className="me-auto">
-                            <Nav.Link>|</Nav.Link>
-                            <Nav.Link onClick={this.signUp}>Sign Up</Nav.Link>
-                        </Nav>
-                        </Nav>
-                        </Navbar.Collapse>
-                    </Container>
-                </Navbar>
+          <Navbar bg="dark" variant="dark" fixed="top">
+          <Container>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+            <Navbar.Brand>
+              <img
+                src="images/logosymbol.png"
+                width="30"
+                style={{ marginRight: "1.5em"}}
+              />
+              Recruit Right
+            </Navbar.Brand>
+              <Nav className="me-auto">
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.home}>Home</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.home}>About Us</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.home}>Contact</Nav.Link>
+              </Nav>
+              <Nav>
+                <Nav className="me-auto">
+                  <Nav.Link>|</Nav.Link>
+                  <Nav.Link href="/signUp">
+                    Create an Account?
+                  </Nav.Link>
+                </Nav>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
 
       <Grid
         textAlign="center"

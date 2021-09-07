@@ -71,19 +71,21 @@ class FeedbackComponent extends Component {
         return (  <div>
             <Navbar bg="dark" variant="dark" fixed="top">
           <Container>
-            <Navbar.Brand href="#home">
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+            <Navbar.Brand>
               <img
                 src="images/logosymbol.png"
                 width="30"
-                style={{ marginRight: "1.5em" }}
+                style={{ marginRight: "1.5em"}}
               />
               Recruit Right
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.home}>Home</Nav.Link>
+                <Nav.Link href="/EmployeeHomeComponent">Home</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link href="/FeedbackComponent">Feedback</Nav.Link>
               </Nav>
               <Nav>
               <NavDropdown
@@ -104,7 +106,7 @@ class FeedbackComponent extends Component {
                   </NavDropdown>
                 <Nav className="me-auto">
                   <Nav.Link>|</Nav.Link>
-                  <Nav.Link value={this.state.userType} onClick={this.logout}>
+                  <Nav.Link onClick={this.logout}>
                     Logout
                   </Nav.Link>
                 </Nav>

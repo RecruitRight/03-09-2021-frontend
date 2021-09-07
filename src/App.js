@@ -12,12 +12,13 @@ import EmployeeHomeComponent from './components/EmployeeHomeComponent';
 import PostRequirementComponent from './components/PostRequirementComponent';
 import POCHomeComponent from './components/POCHomeComponent';
 import FeedbackComponent from './components/FeedbackComponent';
-import PostProfileComponent from './components/PostProfileComponent';
 import LandingPage from './components/LandingPage';
 import Home from './components/Home';
 import Status from './components/Status';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
+import ViewRequirements from './components/ViewRequirements';
+import ViewRequirementsPanelist from './components/ViewRequirementsPanelist';
 
 function App() {
   return (
@@ -37,12 +38,13 @@ function App() {
                           <Route path = "/PostRequirementComponent" component = {PostRequirementComponent}></Route>
                           <Route path = "/POCHomeComponent" component = {POCHomeComponent}></Route>
                           <Route path = "/FeedbackComponent" component = {FeedbackComponent}></Route>
-                          <Route path = "/PostProfileComponent" component = {PostProfileComponent}></Route>
                           <Route path = "/LandingPage" component={LandingPage}></Route>
                           <Route path = "/Home" component={Home}></Route>
                           <Route path = "/Status" component={Status}></Route>
                           <Route path = "/ForgotPassword" component={ForgotPassword}></Route>
                           <Route path = "/ResetPassword" component={ResetPassword}></Route>
+                          <Route path = "/ViewRequirements" component = {ViewRequirements}></Route>
+                          <Route path = "/ViewRequirementsPanelist" component = {ViewRequirementsPanelist}></Route>
                           {/* <Route path = "/add-employee/:id" component = {CreateEmployeeComponent}></Route>
                           <Route path = "/view-employee/:id" component = {ViewEmployeeComponent}></Route> */}
                           {/* <Route path = "/update-employee/:id" component = {UpdateEmployeeComponent}></Route> */}

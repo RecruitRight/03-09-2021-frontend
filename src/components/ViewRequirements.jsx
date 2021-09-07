@@ -5,7 +5,7 @@ import './GlobalVariable';
 import EmployeeService from '../services/EmployeeService';
 import { Header,Table,Menu,Icon, } from "semantic-ui-react";
 
-class Status extends Component {
+class ViewRequirements extends Component {
     constructor() {
         super();
         this.state = { 
@@ -73,9 +73,9 @@ class Status extends Component {
             </Navbar.Brand>
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link href="/POCHomeComponent">Home</Nav.Link>
+                <Nav.Link href="/RMGHomeComponent">Home</Nav.Link>
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link href="/PostRequirementComponent">Post New Requirement</Nav.Link>
+                <Nav.Link href="/ViewRequirements">View Requirements</Nav.Link>
               </Nav>
               <Nav>
               <NavDropdown
@@ -108,7 +108,7 @@ class Status extends Component {
         <div className="container" style={{marginTop:"2em"}}>
         <b><Header
             as="h1"
-            content="Status"
+            content="View Requirements"
             style={{
               fontWeight: "normal",
               textAlign:"center",
@@ -140,4 +140,4 @@ class Status extends Component {
     }
 }
  
-export default Status;
+export default ViewRequirements;

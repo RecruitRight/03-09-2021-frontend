@@ -55,21 +55,21 @@ class LandingPage extends Component {
     console.log("title"+(global.firstName + " " + this.state.lastName));
     return (
       <div>
-        <Navbar bg="dark" variant="dark" fixed="top">
+      <Navbar bg="dark" variant="dark" fixed="top">
           <Container>
-            <Navbar.Brand href="#home">
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+            <Navbar.Brand>
               <img
                 src="images/logosymbol.png"
                 width="30"
-                style={{ marginRight: "1.5em" }}
+                style={{ marginRight: "1.5em"}}
               />
               Recruit Right
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.home}>Home</Nav.Link>
+                <Nav.Link href="/LandingPage">Home</Nav.Link>
               </Nav>
               <Nav>
               <NavDropdown
@@ -90,7 +90,7 @@ class LandingPage extends Component {
                   </NavDropdown>
                 <Nav className="me-auto">
                   <Nav.Link>|</Nav.Link>
-                  <Nav.Link value={this.state.userType} onClick={this.logout}>
+                  <Nav.Link onClick={this.logout}>
                     Logout
                   </Nav.Link>
                 </Nav>
@@ -137,7 +137,7 @@ class LandingPage extends Component {
                   </div>
                   <div className="card-body text-dark">
                     <p classsName="card-text text-secondary">Click here to view your profile and to edit it</p>
-                    <a href="#" className="btn btn-outline-primary">
+                    <a href="/ProfileComponent" className="btn btn-outline-primary">
                       Profile
                     </a>
                   </div>
@@ -154,7 +154,7 @@ class LandingPage extends Component {
                   </div>
                   <div className="card-body text-dark">
                     <p classsName="card-text text-secondary">Check out your profile status</p>
-                    <a href="/Status" className="btn btn-outline-primary">
+                    <a href="#" className="btn btn-outline-primary">
                       Status
                     </a>
                   </div>
@@ -164,40 +164,40 @@ class LandingPage extends Component {
           </div>
         </div>
         <Segment
-          inverted
-          vertical
-          style={{ margin: "5em 0em 0em", padding: "5em 0em" }}
-        >
-          <Container textAlign="center">
-            <Grid divided inverted stackable>
-              <Grid.Column width={4}>
-                <Header inverted as="h4" content="Company" />
-                <List link inverted>
-                  <List.Item as="a">Site Map</List.Item>
-                  <List.Item as="a">Contact</List.Item>
-                  <List.Item as="a">Terms and Conditions</List.Item>
-                  <List.Item as="a">Privacy Policy</List.Item>
-                </List>
-              </Grid.Column>
-              <Grid.Column width={4}>
-                <Header inverted as="h4" content="Social Media" />
-                <List link inverted>
-                  <List.Item as="a">Facebook</List.Item>
-                  <List.Item as="a">Instagram</List.Item>
-                  <List.Item as="a">LinkedIn</List.Item>
-                  <List.Item as="a">Twitter</List.Item>
-                </List>
-              </Grid.Column>
-              <Grid.Column width={7}>
-                <p fontSize="15" textAlign="center">
-                  Recruit Right is a small application which helps people find
-                  jobs according to their profile.
-                </p>
-              </Grid.Column>
-            </Grid>
-          </Container>
-        </Segment>
-      </div>
+        inverted
+        vertical
+        style={{ margin: "5em 0em 0em", padding: "5em 20em" }}
+      >
+        <Container className="text-center">
+          <Grid divided inverted stackable>
+            <Grid.Column width={4}>
+              <Header inverted as="h4" content="Company" />
+              <List link inverted>
+                <List.Item as="a">Site Map</List.Item>
+                <List.Item as="a">Contact</List.Item>
+                <List.Item as="a">Terms and Conditions</List.Item>
+                <List.Item as="a">Privacy Policy</List.Item>
+              </List>
+            </Grid.Column>
+            <Grid.Column width={4}>
+              <Header inverted as="h4" content="Social Media" />
+              <List link inverted>
+                <List.Item as="a">Facebook</List.Item>
+                <List.Item as="a">Instagram</List.Item>
+                <List.Item as="a">LinkedIn</List.Item>
+                <List.Item as="a">Twitter</List.Item>
+              </List>
+            </Grid.Column>
+            <Grid.Column width={7}>
+              <p fontSize="15" textAlign="center">
+                Recruit Right is a small application which helps people find jobs
+                according to their profile.
+              </p>
+            </Grid.Column>
+          </Grid>
+        </Container>
+      </Segment>
+    </div>
     );
   }
 }

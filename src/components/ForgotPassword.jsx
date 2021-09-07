@@ -1,39 +1,21 @@
 import React, { Component } from 'react';
 import EmployeeService from "../services/EmployeeService";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import './FooterComponent';
 import {Button,Form,Grid,Header,Image,Segment} from "semantic-ui-react";
 import FooterComponent from './FooterComponent';
+
 class ForgotPassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            verificationCode: "",
-            password: "",
-            confirmPassword: "",
             userId: ""
           }
-          this.changePassword = this.changePassword.bind(this);
-          this.changeConfirmPassword = this.changeConfirmPassword.bind(this);
-          this.changeVerificationCode = this.changeVerificationCode.bind(this);
-          this.changeuserId = this.changeuserId.bind(this);
+          this.Onchangeuser = this.Onchangeuser.bind(this);
     }
 
-    changeuserId = (event) => {
+    Onchangeuser = (event) => {
         this.setState({ userId: event.target.value });
       }; 
-
-    changePassword = (event) => {
-        this.setState({ password: event.target.value });
-      };
-    
-      changeConfirmPassword = (event) => {
-        this.setState({ confirmPassword: event.target.value });
-      };
-    
-      changeVerificationCode = (event) => {
-        this.setState({ verificationCode: event.target.value });
-      };
 
     reset = (e) => {
         e.preventDefault();
@@ -76,23 +58,32 @@ class ForgotPassword extends Component {
         return ( 
             <div>
                 <Navbar bg="dark" variant="dark" fixed="top">
-             <Container>
-            <Navbar.Brand href="#home">Recruit Right</Navbar.Brand>
+          <Container>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
+            <Navbar.Brand>
+              <img
+                src="images/logosymbol.png"
+                width="30"
+                style={{ marginRight: "1.5em"}}
+              />
+              Recruit Right
+            </Navbar.Brand>
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.home}>About Us</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.home}>Contact</Nav.Link>
               </Nav>
               <Nav>
-              <Nav className="me-auto">
+                <Nav className="me-auto">
                   <Nav.Link>|</Nav.Link>
-                  <Nav.Link href="/login">
-                    Log In
-                  </Nav.Link>
+                  <Nav.Link href="/login">Log In</Nav.Link>
                   <Nav.Link>|</Nav.Link>
                   <Nav.Link href="/signUp">
-                    Sign In
+                    Create an Account?
                   </Nav.Link>
                 </Nav>
               </Nav>
@@ -117,7 +108,7 @@ class ForgotPassword extends Component {
                   icon="mail"
                   iconPosition="left"
                   value={this.state.userId}
-                  onChange={this.changeuserId}
+                  onChange={this.Onchangeuser}
                   required="required"
                 />
                 <Button

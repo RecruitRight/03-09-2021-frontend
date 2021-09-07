@@ -198,13 +198,59 @@ class PostRequirementComponent extends Component {
     render() {
         // const dFlag=this.state.domainFlag;
         return (
+            <div>
+                <Navbar bg="dark" variant="dark" fixed="top">
+          <Container>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+            <Navbar.Brand>
+              <img
+                src="images/logosymbol.png"
+                width="30"
+                style={{ marginRight: "1.5em"}}
+              />
+              Recruit Right
+            </Navbar.Brand>
+              <Nav className="me-auto">
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link href="/POCHomeComponent">Home</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link href="/PostRequirementComponent">Post New Requirement</Nav.Link>
+              </Nav>
+              <Nav>
+              <NavDropdown
+                    title={global.firstName + " " + global.lastName}
+                    id="basic-nav-dropdown"
+                    style={{ marginLeft: "20" }}
+                  >
+                    <NavDropdown.Item href="/ProfileComponent">
+                      View Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/EditProfileComponent">
+                      Edit Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/UploadFile">
+                      Upload Resume
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                <Nav className="me-auto">
+                  <Nav.Link>|</Nav.Link>
+                  <Nav.Link onClick={this.logout}>
+                    Logout
+                  </Nav.Link>
+                </Nav>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
             <div className="page-wrap">
                 <br></br>
                    <div className = "container p-3">
                         <div className = "row">
                             <div className = "card col-md-6 offset-md-3 offset-md-3">
                                 <div className="p-5">
-                                <h3 className="text-center">Post a Requirement</h3><br></br>
+                                <h3 className="text-center">Post New Requirement</h3><br></br>
                                 <div className = "card-body">
                                     <select class="form-select" value={this.state.domainValue} onChange={this.selectDomain.bind(this)} >
                                         <option>-- Domain --</option>
@@ -261,6 +307,7 @@ class PostRequirementComponent extends Component {
                         </div>
 
                    </div>
+            </div>
             </div>
         )
     }

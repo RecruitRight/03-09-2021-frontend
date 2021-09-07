@@ -66,7 +66,7 @@ home = (e) => {
                 <Nav className="me-auto">
                   <Nav.Link>|</Nav.Link>
                   <Nav.Link href="/signUp">
-                    Create an Account
+                    Create an Account?
                   </Nav.Link>
                 </Nav>
               </Nav>
