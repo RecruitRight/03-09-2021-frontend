@@ -11,13 +11,13 @@ class CandidateHomeComponent extends Component {
     }
 
     render() { 
-        return ( 
-            <div>
+        return (<div>
                 <h1>Candidate Dashboard</h1>
                 <button className="btn btn-primary" onClick={this.viewProfile}>Profile</button>
                 <button className="btn btn-primary" style={{marginLeft: "10px"}}>Status</button>
-            </div>
-         );
+        </div>
+        
+        );
     }
 }
  

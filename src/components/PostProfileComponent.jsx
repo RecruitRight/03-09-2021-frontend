@@ -5,7 +5,7 @@ import UploadFile from './UploadFile';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import './GlobalVariable';
 
-class EditProfileComponent extends Component {
+class PostProfileComponent extends Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -27,32 +27,15 @@ class EditProfileComponent extends Component {
         EmployeeService.updateProfile(employee).then(res =>{
             let s=res.data;
             if(s.booleanMsg){
-            <div><h4>Profile Updated</h4></div>
-            this.props.history.push('/ProfileComponent');
+            this.props.history.push('/RMGHomeComponent');
+                alert('Profiles Uploded Successfully');
             }
             else{
                 console.log("unsuccessful");
+                alert('Error! Please Upload Again');
             }
         });
   }
-
-  /*getProfileData=()=> {
-  const [repo, setRepo] = useState([]);
-
-  useEffect(()=> getRepo(),[]);
-
-  const getRepo=()=>{
-    axios.get('http://localhost:8080/').then(response =>{
-      if(booleanMsg){
-        const myRepo=response.data;
-        setRepo(myRepo);
-      }
-      else{
-          console.log("No Data Pulled");
-      }
-  });
-  }
-}*/
 
 componentDidMount() {
   // GET request using axios with error handling
@@ -81,48 +64,36 @@ componentDidMount() {
   }
 
     cancel=()=>{
-      this.props.history.push('/ProfileComponent');
+      this.props.history.push('/PostProfilComponent');
     }
 
     render() { 
         return ( <div className="page-wrap">
-                    <div className = "container p-5 center">
-                      <div className="card " style={{width: "35rem" }}>
-                       <div className="p-5">
+          <br></br>
+             <div className = "container p-4">
+                  <div className = "row">
+                      <div className = "card col-md-6 offset-md-3 offset-md-3">
+                      <div className="p-5">
                               <form>
-                                  <h1 className="text-center">Edit Profile</h1>
-                                  <div className = "card-body"></div>
-                                      <label style={{fontSize:16}}> First Name: </label><br></br>
-                                      <input name="firstName" className="form-control" 
-                                          value={this.state.firstName} onChange={this.changeFirstNameHandler} required/>
-                                  <br></br>
-              
-                                      <label style={{fontSize:16}}> Last Name: </label><br></br>
-                                      <input name="lastName" className="form-control" 
-                                          value={this.state.lastName} onChange={this.changeLastNameHandler} required/>
-                                  
-                                  <br></br>
-                                      <label style={{fontSize:16}}> Contact: </label><br></br>
-                                      <input name="contact" className="form-control" 
-                                          value={this.state.contact} onChange={this.changeContactHandler} required/>
-                                
-                                  <br></br>
-                                  {/*
-                                  <label> Attach Resume:</label>
+                                  <h3 className="text-center">Edit Profile</h3>
+                                  <div className = "card-body"></div>   
+                                  <label> Upload Resumes:</label>
                                   <UploadFile />
-                                  <br></br>*/}
-                                  <div className="text-center">
+                                  <br></br>
+                                  <div>
                                   <button className="btn btn-primary" onClick={this.saveOrUpdateProfile}>Save Profile</button>
                                   <button className="btn btn-primary" onClick={this.cancel} style={{marginLeft: "10px"}}>Cancel</button>
                                   </div>
                               </form>
                           </div>
-                        </div>
                       </div>
-              </div>  
+                  </div>
+
+             </div>     
+      </div>
 
          );
     }
 }
  
-export default EditProfileComponent;
+export default PostProfileComponent;

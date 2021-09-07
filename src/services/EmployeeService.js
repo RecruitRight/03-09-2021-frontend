@@ -16,6 +16,26 @@ class EmployeeService {
         return axios.post("http://localhost:8080/login", employee);
     }
 
+    logout(employee){
+        return axios.post("http://localhost:8080/logout", employee);
+    }
+
+    forgotPassword(employee){
+        return axios.post("http://localhost:8080/forgotPassword", employee);
+    }
+
+    resetPassword(employee){
+        return axios.post("http://localhost:8080/resetPassword", employee);
+    }
+
+    pocRequirement(employee){
+        return axios.post("http://localhost:8080/poc/requirementList", employee);
+    }
+
+    postRequirement(details){
+        return axios.post("http://localhost:8080/postRequirement", details);
+    }
+
     updateProfile(employee){
         return axios.post("http://localhost:8080/login", employee);
     }
@@ -28,9 +48,10 @@ class EmployeeService {
         return axios.post("http://localhost:8080/feedBack", formData);
     }
 
-    postRequirement(details){
+    uploadResume(details){
         return axios.post("http://localhost:8080/postRequirement", details);
     }
+
 }
 
 export default new EmployeeService()

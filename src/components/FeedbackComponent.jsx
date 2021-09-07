@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import EmployeeService from '../services/EmployeeService';
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import './GlobalVariable';
 
 class FeedbackComponent extends Component {
     constructor(props) {
@@ -54,28 +56,81 @@ class FeedbackComponent extends Component {
         });
     }
 
+    logout = (e) => {
+        e.preventDefault();
+        global.userId="";
+            global.userType="";
+            global.firstName="";
+            global.lastName="";
+            global.contact="";
+            global.sessionId="";
+        this.props.history.push('/home');
+    }
+
     render() { 
-        return (  
+        return (  <div>
+            <Navbar bg="dark" variant="dark" fixed="top">
+          <Container>
+            <Navbar.Brand href="#home">
+              <img
+                src="images/logosymbol.png"
+                width="30"
+                style={{ marginRight: "1.5em" }}
+              />
+              Recruit Right
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto">
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.home}>Home</Nav.Link>
+              </Nav>
+              <Nav>
+              <NavDropdown
+                    title={global.firstName + " " + global.lastName}
+                    id="basic-nav-dropdown"
+                    style={{ marginLeft: "20" }}
+                  >
+                    <NavDropdown.Item href="/ProfileComponent">
+                      View Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/EditProfileComponent">
+                      Edit Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/UploadFile">
+                      Upload Resume
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                <Nav className="me-auto">
+                  <Nav.Link>|</Nav.Link>
+                  <Nav.Link value={this.state.userType} onClick={this.logout}>
+                    Logout
+                  </Nav.Link>
+                </Nav>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
             <div className="page-wrap">
-            <br></br>
-               <div className = "container p-4">
-                    <div className = "row">
-                        <div className = "card col-md-6 offset-md-3 offset-md-3">
+               <div className = "container p-5 center">
+                   
+               <div className="card " style={{width: "35rem" }}>
                         <div className="p-5">
                                 <form>
-                                    <h3 className="text-center">Feedback</h3>
+                                    <h1 className="text-center">Feedback</h1>
                                     <div className = "card-body"></div>
-                                        <label> Requirement Id: </label><br></br>
+                                        <label style={{fontSize:16}}> Requirement Id: </label><br></br>
                                         <input name="reqId" className="form-control" 
                                             value={this.state.reqId} onChange={this.changeReqId} required/>
                                     <br></br>
-                                        <label> User Id: </label><br></br>
+                                        <label style={{fontSize:16}}> User Id: </label><br></br>
                                         <input name="userId" className="form-control" type="email"
                                             value={this.state.userId} onChange={this.changeUserId} required/>
                                     
                                     <br></br>
                                     <div>
-                                        <label for="validsel" class="form-label">Status:</label>
+                                        <label  style={{fontSize:16}} for="validsel" class="form-label">Status:</label>
                                         <select class="form-select" id="validsel" value={this.state.status} onChange={this.selectStatus.bind(this)} required="required">
                                         <option selected disabled value="">Choose Option</option>
                                         <option>Accept</option>
@@ -83,7 +138,7 @@ class FeedbackComponent extends Component {
                                         </select>
                                     </div>
                                     <br></br>
-                                        <label> Comments: </label><br></br>
+                                        <label style={{fontSize:16}}> Comments: </label><br></br>
                                         <textarea name="Comments" className="form-control" 
                                             value={this.state.comments} onChange={this.changeComments} required/>
                                   
@@ -96,9 +151,8 @@ class FeedbackComponent extends Component {
                             </div>
                         </div>
                     </div>
-  
+                    </div>
                </div>     
-        </div>
         );
     }
 }

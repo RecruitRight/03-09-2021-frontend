@@ -1,8 +1,11 @@
-/* eslint-disable */
+
 import React, { Component } from 'react'
 import EmployeeService from '../services/EmployeeService';
+import { Route } from 'react-router';
+import CandidateHomeComponent from '../components/CandidateHomeComponent';
+import '../components/GlobalVariable';
 
-class LoginComponent extends Component {
+class LoginComponent extends React.Component {
     constructor(props) {
         super(props)
 
@@ -41,10 +44,12 @@ class LoginComponent extends Component {
         if(this.validate()){
         let employee = {userId: this.state.userId, userType: this.state.userType,firstName: this.state.firstName, lastName: this.state.lastName, contact: this.state.contact, password: this.state.password};
         console.log('employee => ' + JSON.stringify(employee));
+        console.log('Sahiti firstName =>'+employee['firstName']+'SAHITI');
+        
+        
         // step 5
         EmployeeService.login(employee).then(res =>{
             let s=res.data;
-            console.log(s);
             if(s.booleanMsg){
                 const ut= this.state.userType;
                 
@@ -110,6 +115,12 @@ class LoginComponent extends Component {
         return isValid;
     }
 
+    LoginComponent = (props) => {
+        return(
+              <h2> {props.message} </h2>
+        );
+    }
+
     render() {
         const err=this.state.err;
         return (
@@ -142,6 +153,7 @@ class LoginComponent extends Component {
                                         <option>Panelist</option>
                                         </select>
                                         </div><br></br>
+                                       {/* <ProfileComponent sess={s.sessionId}></ProfileComponent> */} 
                                         <button disabled={!this.state.userId || !this.state.password || !this.state.userType} value={this.state.userType} className="btn btn-success" onClick={this.loginEmp}>Login</button>
                                 
                                         <button className="btn btn-danger" onClick={this.cancel} style={{marginLeft: "10px"}}>Cancel</button>

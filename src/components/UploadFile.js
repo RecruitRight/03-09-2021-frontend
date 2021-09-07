@@ -2,20 +2,22 @@
 import EmployeeService from '../services/EmployeeService';
 import React,{Component} from 'react';
 import { Form } from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import './GlobalVariable';
 
 class UploadFile extends Component {
 
 	state = {
 
 	// Initially, no file is selected
-	selectedFile: null
+	selectedFile: ''
 	};
 	
 	// On file select (from the pop up)
 	onFileChange = event => {
 	
 	// Update the state
-	this.setState({ selectedFile: event.target.files[0] });
+	this.setState({ selectedFile: event.target.files});
 	
 	};
 	
@@ -29,7 +31,6 @@ class UploadFile extends Component {
 	formData.append(
 		"myFile",
 		this.state.selectedFile,
-		this.state.selectedFile.name
 	);
 	
 	// Details of the uploaded file
@@ -40,47 +41,41 @@ class UploadFile extends Component {
 	EmployeeService.Upload(formData).then(res =>{
         let s=res.data;
         if(s.booleanMsg){
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Upload Successfull</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-        }
-        else{
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Upload Fail, Try Again</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-        }
+            this.props.history.push('/RMGHomeComponent');
+                alert('Profiles Uploded Successfully');
+            }
+            else{
+                console.log("unsuccessful");
+                alert('Error! Please Upload Again');
+            }
     });
     
 	};
-	
+
 	// File content to be displayed after
 	// file upload is complete
-	fileData = () => {
+	/*fileData = () => {
 	
 	if (this.state.selectedFile) {
 		
+		for (const i of Object.keys(this.state.selectedFile)) {
+		<p>{this.state.selectedFile[i].name}</p>
+		}*
+
 		return (
-		<div>
-			<h5>File Details:</h5>
-			
-<p>File Name: {this.state.selectedFile.name}</p>	
-<p>Last Modified:{" "}
-{this.state.selectedFile.lastModifiedDate.toDateString()}
-</p>
-</div>
-		);
+			<div>
+			<h5>File Details:</h5> 
+			<p>File Name: {this.state.selectedFile.name}</p>	
+			<p>Last Modified:{" "}
+			{this.state.selectedFile.lastModifiedDate.toDateString()}
+			</p>
+		</div>);
 	} else {
 		return (
 		<div></div>
 		);
 	}
-	};
+	};*/
 	
 	render() {
 	
@@ -90,12 +85,10 @@ class UploadFile extends Component {
             Upload only PDF Attachment 
             </div>
 			<div>
-				<input type="file" onChange={this.onFileChange} accept="application/pdf"/>
+				<input type="file" onChange={this.onFileChange} accept="application/pdf" multiple/>
 				<button type="button" class="btn btn-primary" onClick={this.onFileUpload}>Upload</button>
 			</div>
-		{this.fileData()}
-		</div>
-	);
+	</div>);
 	}
 }
 

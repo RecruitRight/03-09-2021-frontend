@@ -126,7 +126,7 @@ class SignUpComponent extends Component {
         return (
             <div className="page-wrap">
                 <br></br>
-                   <div className = "container p-4">
+                   <div className = "container-fluid p-4">
                         <div className = "row">
                             <div className = "card col-md-6 offset-md-3 offset-md-3"> 
                                 <div className="p-5"> <h3 className="text-center">Sign Up</h3> 

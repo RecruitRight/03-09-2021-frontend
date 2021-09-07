@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import EmployeeService from '../services/EmployeeService';
 import {components} from "react-select";
 import ReactSelect from 'react-select';
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import './GlobalVariable';
 
 Option = (props) => {
     return (
