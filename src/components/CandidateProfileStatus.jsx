@@ -6,7 +6,7 @@ import EmployeeService from '../services/EmployeeService';
 import { Header,Table,Menu,Icon, } from "semantic-ui-react";
 import FooterComponent from './FooterComponent';
 
-class ViewRequirementsPanelist extends Component {
+class CandidateProfileStatus extends Component {
     constructor() {
         super();
         this.state = { 
@@ -16,9 +16,9 @@ class ViewRequirementsPanelist extends Component {
     }
 
     componentDidMount(){
-        let employee = {sessionId:window.sessionId} ;
+        let employee = {sessionId:global.sessionId} ;
         console.log(employee);
-        EmployeeService.pocRequirement(employee).then(res => {
+        EmployeeService.candidateProfileStatus(employee).then(res => {
             let s=res.data;
             console.log(s);
             console.log(s.requirements);
@@ -26,33 +26,28 @@ class ViewRequirementsPanelist extends Component {
         })
     }
     
-    viewProfile= (e) => {
-      e.preventDefault();
-      this.props.history.push('/ProfileComponent');
-    };
-  
-    editProfile = (e) => {
-      e.preventDefault();
-      this.props.history.push('/EditProfileComponent');
-  }
-    uploadProfile = (e) => {
-    e.preventDefault();
-    this.props.history.push('/UploadFile');
-  }
-  
-  feedback=(e) =>{
-    e.preventDefault();
-    this.props.history.push('/FeedbackComponent');
-  }
-  
-  viewReqPanelist = (e) => {
-    e.preventDefault();
-    this.props.history.push('/viewReqPanelist');
-  }
-  
-    home = (e) => {
+    logout = (e) => {
         e.preventDefault();
-        this.props.history.push('/EmployeeHomeComponent');
+        global.userId="";
+            global.userType="";
+            global.firstName="";
+            global.lastName="";
+            global.contact="";
+        this.props.history.push('/home');
+    }
+  
+    viewProfile= (e) => {
+        e.preventDefault();
+        this.props.history.push('/ProfileComponent');
+      };
+    
+      editProfile = (e) => {
+        e.preventDefault();
+        this.props.history.push('/EditProfileComponent');
+    }
+    uploadProfile = (e) => {
+      e.preventDefault();
+      this.props.history.push('/UploadFile');
     }
 
     logout = (e) => {
@@ -73,6 +68,16 @@ class ViewRequirementsPanelist extends Component {
         });
     };
 
+    CandidateProfileStatus = (e) => {
+        e.preventDefault();
+        this.props.history.push('/CandidateProfileStatus');
+    }
+
+      home = (e) => {
+        e.preventDefault();
+        this.props.history.push('/LandingPage');
+    }
+
     renderRequirement = (req,index) => {
         return(
             <Table.Row key={index}>
@@ -82,8 +87,6 @@ class ViewRequirementsPanelist extends Component {
                 <Table.Cell>{req.projectName}</Table.Cell>
                 <Table.Cell>{req.jobRole}</Table.Cell>
                 <Table.Cell>{req.jobRoleType}</Table.Cell>
-                <Table.Cell>{req.techStack}</Table.Cell>
-                <Table.Cell>{req.experience}</Table.Cell>
                 <Table.Cell>{req.status}</Table.Cell>
             </Table.Row>
         )
@@ -108,11 +111,11 @@ class ViewRequirementsPanelist extends Component {
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.feedback}>Feedback</Nav.Link>
+                <Nav.Link onClick={this.CandidateProfileStatus}>Profile Status</Nav.Link>
               </Nav>
               <Nav>
               <NavDropdown
-                    title={window.firstName + " " + window.lastName}
+                    title={global.firstName + " " + global.lastName}
                     id="basic-nav-dropdown"
                     style={{ marginLeft: "20" }}
                   >
@@ -141,7 +144,7 @@ class ViewRequirementsPanelist extends Component {
         <div className="container" style={{marginTop:"2em"}}>
         <b><Header
             as="h1"
-            content="View Requirements"
+            content="Profile Status"
             style={{
               fontWeight: "normal",
               textAlign:"center",
@@ -158,8 +161,6 @@ class ViewRequirementsPanelist extends Component {
                         <Table.HeaderCell>Project Name</Table.HeaderCell>
                         <Table.HeaderCell>Job Role</Table.HeaderCell>
                         <Table.HeaderCell>Job Role Type</Table.HeaderCell>
-                        <Table.HeaderCell>Tech Stack</Table.HeaderCell>
-                        <Table.HeaderCell>Experience</Table.HeaderCell>
                         <Table.HeaderCell>Status</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
@@ -167,10 +168,11 @@ class ViewRequirementsPanelist extends Component {
                     {this.state.requirements.map(this.renderRequirement)}   
                 </Table.Body>
             </ReactBootstrap.Table>
-            </div><FooterComponent></FooterComponent>
+            </div>
+            <FooterComponent></FooterComponent>
             </div>
          );
     }
 }
  
-export default ViewRequirementsPanelist;
+export default CandidateProfileStatus;

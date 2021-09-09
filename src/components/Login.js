@@ -15,6 +15,7 @@ import {
   Dropdown,
   Select,
 } from "semantic-ui-react";
+import FooterComponent from './FooterComponent';
 
 class Login extends React.Component {
   constructor(props) {
@@ -34,7 +35,6 @@ class Login extends React.Component {
     this.changePasswordHandler = this.changePasswordHandler.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.loginEmp = this.loginEmp.bind(this);
-    this.cancel = this.cancel.bind(this);
     this.home = this.home.bind(this);
     this.signUp = this.signUp.bind(this);
     
@@ -63,21 +63,24 @@ class Login extends React.Component {
       };
       console.log("employee => " + JSON.stringify(employee));
 
-      // step 5
       EmployeeService.login(employee).then((res) => {
         let s = res.data;
-          global.sessionId=s.sessionId;
-            console.log(s);
-            let ss=s.user;
-            global.userId=ss.userId;
-            global.userType=ss.userType;
-            global.firstName=ss.firstName;
-            global.lastName=ss.lastName;
-            global.contact=ss.contact;
-            console.log('sessonId'+s.sessionId);
+          
+            
         if (s.booleanMsg) {
+          localStorage.clear();
+            localStorage.setItem('token',s.jwtToken);
+            console.log('token:'+localStorage.getItem('token'));
+            console.log('token:fromjson'+s.jwtToken);
           const ut = this.state.userType;
-
+          console.log(s);
+          let ss=s.user;
+          window.userId=ss.userId;
+          window.userType=ss.userType;
+          window.firstName=ss.firstName;
+          window.lastName=ss.lastName;
+          window.contact=ss.contact;
+          
           if (this.state.userType === "Candidate") {
             this.props.history.push("/LandingPage");
             alert("Login Successful");
@@ -136,8 +139,9 @@ class Login extends React.Component {
     return isValid;
   }
 
-  Login = (props) => {
-    return <h2> {props.message} </h2>;
+  Login = (e) => {
+    e.preventDefault();
+    this.props.history.push('/login');
   };
 
 
@@ -178,7 +182,7 @@ home = (e) => {
               <Nav>
                 <Nav className="me-auto">
                   <Nav.Link>|</Nav.Link>
-                  <Nav.Link href="/signUp">
+                  <Nav.Link onClick={this.signUp}>
                     Create an Account?
                   </Nav.Link>
                 </Nav>
@@ -258,6 +262,7 @@ home = (e) => {
           </Message>
         </Grid.Column>
       </Grid>
+      <FooterComponent></FooterComponent>
       </div>
     );
   }

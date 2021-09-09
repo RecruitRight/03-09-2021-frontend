@@ -1,24 +1,44 @@
 import EmployeeService from '../services/EmployeeService';
 import React,{Component} from 'react';
 import { Form } from 'react-bootstrap';
+import { builtinModules } from 'module';
 import FooterComponent from './FooterComponent';
 
-class UploadFile extends Component {
-	state = {
-	resumeList : '',
-	};
+class UploadProfileRMG extends Component {
+	constructor(props) {
+        super(props)
+        this.state = {
+              f:null,
+        }
+    }
 
 	onFileChange = e => {
-	this.setState({ resumeList : e.target.files[0]});
-	};
-
-	onFileUpload = async e => {
-	const formData = new FormData();
-	for (let resumeList in this.state) {
-		formData.append(resumeList, this.state[resumeList]);
-	}
-	console.log(this.state.resumeList);
-	EmployeeService.Upload(formData).then(res =>{
+		const formData = new FormData(); 
+		for( let i =0; i <e.target.files.length; i++){
+			formData.append('resumeList', e.target.files[i]);
+		}
+		this.state.f=formData;
+};
+logout = (e) => {
+    e.preventDefault();
+      EmployeeService.logout().then((res) => {
+        let s = res.data;
+        if (s.booleanMsg) {
+          window.userId = "";
+          window.userType = "";
+          window.firstName = "";
+          window.lastName = "";
+          window.contact = "";
+          window.sessionId = "";
+          localStorage.clear();
+          this.props.history.push('/Home');
+        } 
+        
+      });
+  };
+  
+onFileUpload = async e => {
+	EmployeeService.Upload(this.state.f).then(res =>{
         let s=res.data;
         if(s.booleanMsg){
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -39,24 +59,10 @@ class UploadFile extends Component {
     });
 	};
 
-	logout = (e) => {
-    e.preventDefault();
-      EmployeeService.logout().then((res) => {
-        let s = res.data;
-        if (s.booleanMsg) {
-          window.userId = "";
-          window.userType = "";
-          window.firstName = "";
-          window.lastName = "";
-          window.contact = "";
-          window.sessionId = "";
-          localStorage.clear();
-          this.props.history.push('/Home');
-        } 
-        
-      });
-  };
-  
+
+
+
+	
 	render() {
 	
 	return (
@@ -65,12 +71,13 @@ class UploadFile extends Component {
             Upload only PDF Attachment 
             </div>
 			<div>
-				<input type="file" name = "resumeList" onChange={(e) => this.onFileChange(e)} accept="application/pdf" />
+				<input type="file" onChange={(e) => this.onFileChange(e)} accept="application/pdf" multiple="multiple"/>
 				<button type="button" class="btn btn-primary" onClick={this.onFileUpload}>Upload</button>
-			</div><FooterComponent></FooterComponent>
+			</div>
+			<FooterComponent></FooterComponent>
 		</div>
 	);
 	}
 }
 
-export default UploadFile;
+export default UploadProfileRMG;

@@ -4,6 +4,7 @@ import * as ReactBootstrap from 'react-bootstrap';
 import './GlobalVariable';
 import EmployeeService from '../services/EmployeeService';
 import { Header,Table,Menu,Icon, } from "semantic-ui-react";
+import FooterComponent from './FooterComponent';
 
 class Status extends Component {
     constructor() {
@@ -26,19 +27,55 @@ class Status extends Component {
     }
     
     logout = (e) => {
-        e.preventDefault();
-        global.userId="";
-            global.userType="";
-            global.firstName="";
-            global.lastName="";
-            global.contact="";
-        this.props.history.push('/home');
-    }
+      e.preventDefault();
+        EmployeeService.logout().then((res) => {
+          let s = res.data;
+          if (s.booleanMsg) {
+            window.userId = "";
+            window.userType = "";
+            window.firstName = "";
+            window.lastName = "";
+            window.contact = "";
+            window.sessionId = "";
+            localStorage.clear();
+            this.props.history.push('/Home');
+          } 
+          
+        });
+    };
   
     home = (e) => {
         e.preventDefault();
         this.props.history.push('/POCHomeComponent');
     }
+
+    viewProfile= (e) => {
+      e.preventDefault();
+      this.props.history.push('/ProfilePOC');
+    };
+  
+    editProfile = (e) => {
+      e.preventDefault();
+      this.props.history.push('/EditProfilePOC');
+  }
+    uploadProfile = (e) => {
+    e.preventDefault();
+    this.props.history.push('/UploadProfilePOC');
+  }
+  
+  postNewReq = (e) => {
+    e.preventDefault();
+    this.props.history.push('/PostRequirementComponent');
+  }
+  closeReq = (e) => {
+    e.preventDefault();
+    this.props.history.push('/CloseRequirement');
+  }
+  
+  Status = (e) => {
+    e.preventDefault();
+    this.props.history.push('/Status');
+  }
 
     renderRequirement = (req,index) => {
         return(
@@ -73,9 +110,18 @@ class Status extends Component {
             </Navbar.Brand>
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link href="/POCHomeComponent">Home</Nav.Link>
-                <Nav.Link>|</Nav.Link>
-                <Nav.Link href="/PostRequirementComponent">Post New Requirement</Nav.Link>
+                <Nav.Link onClick={this.home}>Home</Nav.Link>
+                <NavDropdown
+                    title="Requirement"
+                    id="basic-nav-dropdown"
+                  >
+                    <NavDropdown.Item onClick={this.postNewReq}>
+                    Post New Requirement
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.closeReq}>
+                      Close Requirement
+                    </NavDropdown.Item>
+                  </NavDropdown>
               </Nav>
               <Nav>
               <NavDropdown
@@ -83,14 +129,14 @@ class Status extends Component {
                     id="basic-nav-dropdown"
                     style={{ marginLeft: "20" }}
                   >
-                    <NavDropdown.Item href="/ProfileComponent">
+                    <NavDropdown.Item onClick={this.viewProfile}>
                       View Profile
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="/EditProfileComponent">
+                    <NavDropdown.Item onClick={this.editProfile}>
                       Edit Profile
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="/UploadFile">
+                    <NavDropdown.Item onClick={this.uploadProfile}>
                       Upload Resume
                     </NavDropdown.Item>
                   </NavDropdown>
@@ -134,7 +180,7 @@ class Status extends Component {
                     {this.state.requirements.map(this.renderRequirement)}   
                 </Table.Body>
             </ReactBootstrap.Table>
-            </div>
+            </div><FooterComponent></FooterComponent>
             </div>
          );
     }

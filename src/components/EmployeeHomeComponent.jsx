@@ -12,6 +12,7 @@ import {
 import "./GlobalVariable";
 import { Grid, Segment, List, Header, Image } from "semantic-ui-react";
 import "../App.css";
+import EmployeeService from "../services/EmployeeService";
 
 const style = {
   h3: {
@@ -35,24 +36,68 @@ class EmployeeHomeComponent extends Component {
 
   logout = (e) => {
     e.preventDefault();
-    global.userId = "";
-    global.userType = "";
-    global.firstName = "";
-    global.lastName = "";
-    global.contact = "";
-    global.sessionId = "";
+    window.userId = "";
+    window.userType = "";
+    window.firstName = "";
+    window.lastName = "";
+    window.contact = "";
+    window.sessionId = "";
     this.props.history.push("/home");
   };
 
-  componentDidMount=()=> {
-      this.state.firstName=global.firstName;
-      this.state.lastName=global.lastName;
-      console.log(this.state.firstName);
-      console.log(global.firstName);
+  viewProfile= (e) => {
+    e.preventDefault();
+    this.props.history.push('/ProfileEmployee');
+  };
+
+  editProfile = (e) => {
+    e.preventDefault();
+    this.props.history.push('/EditProfileEmployee');
+}
+  uploadProfile = (e) => {
+  e.preventDefault();
+  this.props.history.push('/UploadProfileEmployee');
+}
+
+feedback=(e) =>{
+  e.preventDefault();
+  this.props.history.push('/FeedbackComponent');
+}
+
+viewReqPanelist = (e) => {
+  e.preventDefault();
+  this.props.history.push('/ViewRequirementsPanelist');
+}
+
+fetchAllReq=(e)=>{
+  e.preventDefault();
+  this.props.history.push('/ViewAllRequirements');
+}
+
+  home = (e) => {
+      e.preventDefault();
+      this.props.history.push('/EmployeeHomeComponent');
   }
 
+  logout = (e) => {
+    e.preventDefault();
+      EmployeeService.logout().then((res) => {
+        let s = res.data;
+        if (s.booleanMsg) {
+          window.userId = "";
+          window.userType = "";
+          window.firstName = "";
+          window.lastName = "";
+          window.contact = "";
+          window.sessionId = "";
+          localStorage.clear();
+          this.props.history.push('/Home');
+        } 
+        
+      });
+  };
+
   render() {
-    console.log("title"+(global.firstName + " " + this.state.lastName));
     return (
       <div>
       <Navbar bg="dark" variant="dark" fixed="top">
@@ -69,24 +114,24 @@ class EmployeeHomeComponent extends Component {
             </Navbar.Brand>
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link href="/EmployeeHomeComponent">Home</Nav.Link>
+                <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link href="/FeedbackComponent">Feedback</Nav.Link>
+                <Nav.Link onClick={this.feedback}>Feedback</Nav.Link>
               </Nav>
               <Nav>
               <NavDropdown
-                    title={global.firstName + " " + global.lastName}
+                    title={window.firstName + " " + window.lastName}
                     id="basic-nav-dropdown"
                     style={{ marginLeft: "20" }}
                   >
-                    <NavDropdown.Item href="/ProfileComponent">
+                    <NavDropdown.Item onClick={this.viewProfile}>
                       View Profile
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="/EditProfileComponent">
+                    <NavDropdown.Item onClick={this.editProfile}>
                       Edit Profile
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="/UploadFile">
+                    <NavDropdown.Item onClick={this.uploadProfile}>
                       Upload Resume
                     </NavDropdown.Item>
                   </NavDropdown>
@@ -117,13 +162,13 @@ class EmployeeHomeComponent extends Component {
                     <img
                       src="/images/resume.png"
                       alt="Image 1"
-                      className="card-img-top"
+                      className="card-img-top" width="50" height="250"
                     />
                   </div>
                   <div className="card-body text-dark">
-                    <p classsName="card-text text-secondary">For a best suitable job, upload your best CV or Resume.</p>
-                    <a href="/UploadFile" className="btn btn-outline-primary">
-                      Upload Now
+                    <p classsName="card-text text-secondary">Check all the requirements posted by you.</p>
+                    <a onClick={this.fetchAllReq} className="btn btn-outline-primary">
+                      Take a look
                     </a>
                   </div>
                 </div>
@@ -134,12 +179,12 @@ class EmployeeHomeComponent extends Component {
                     <img
                       src="/images/profile.png"
                       alt="Image 1"
-                      className="card-img-top"
+                      className="card-img-top" width="50" height="250"
                     />
                   </div>
                   <div className="card-body text-dark">
                     <p classsName="card-text text-secondary">Click here to view your profile and to edit it</p>
-                    <a href="/ProfileComponent" className="btn btn-outline-primary">
+                    <a onClick={this.viewProfile} className="btn btn-outline-primary">
                       Profile
                     </a>
                   </div>
@@ -151,12 +196,12 @@ class EmployeeHomeComponent extends Component {
                     <img
                       src="/images/Status.png"
                       alt="Image 1"
-                      className="card-img-top"
+                      className="card-img-top" width="50" height="250"
                     />
                   </div>
                   <div className="card-body text-dark">
                     <p classsName="card-text text-secondary">Check out the requirements</p>
-                    <a href="/ViewRequirementsPanelist" className="btn btn-outline-primary">
+                    <a onClick={this.viewReqPanelist} className="btn btn-outline-primary">
                       View
                     </a>
                   </div>
@@ -195,7 +240,8 @@ class EmployeeHomeComponent extends Component {
                 Recruit Right is a small application which helps people find jobs
                 according to their profile.
               </p>
-            </Grid.Column>
+            </Grid.Column><Grid.Row ><br></br><br></br>
+              <p textAlign="center">All Rights Reserved to Recruit Right</p></Grid.Row>
           </Grid>
         </Container>
       </Segment>

@@ -1,12 +1,12 @@
 import React, {Component } from 'react';
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown ,Dropdown,DropdownButton} from 'react-bootstrap';
 import * as ReactBootstrap from 'react-bootstrap';
 import './GlobalVariable';
 import EmployeeService from '../services/EmployeeService';
 import { Header,Table,Menu,Icon, } from "semantic-ui-react";
 import FooterComponent from './FooterComponent';
 
-class ViewRequirementsPanelist extends Component {
+class   ViewAllRequirements extends Component {
     constructor() {
         super();
         this.state = { 
@@ -16,7 +16,7 @@ class ViewRequirementsPanelist extends Component {
     }
 
     componentDidMount(){
-        let employee = {sessionId:window.sessionId} ;
+        let employee = {sessionId:global.sessionId} ;
         console.log(employee);
         EmployeeService.pocRequirement(employee).then(res => {
             let s=res.data;
@@ -26,35 +26,6 @@ class ViewRequirementsPanelist extends Component {
         })
     }
     
-    viewProfile= (e) => {
-      e.preventDefault();
-      this.props.history.push('/ProfileComponent');
-    };
-  
-    editProfile = (e) => {
-      e.preventDefault();
-      this.props.history.push('/EditProfileComponent');
-  }
-    uploadProfile = (e) => {
-    e.preventDefault();
-    this.props.history.push('/UploadFile');
-  }
-  
-  feedback=(e) =>{
-    e.preventDefault();
-    this.props.history.push('/FeedbackComponent');
-  }
-  
-  viewReqPanelist = (e) => {
-    e.preventDefault();
-    this.props.history.push('/viewReqPanelist');
-  }
-  
-    home = (e) => {
-        e.preventDefault();
-        this.props.history.push('/EmployeeHomeComponent');
-    }
-
     logout = (e) => {
       e.preventDefault();
         EmployeeService.logout().then((res) => {
@@ -72,6 +43,39 @@ class ViewRequirementsPanelist extends Component {
           
         });
     };
+  
+    home = (e) => {
+        e.preventDefault();
+        this.props.history.push('/POCHomeComponent');
+    }
+
+    viewProfile= (e) => {
+      e.preventDefault();
+      this.props.history.push('/ProfilePOC');
+    };
+  
+    editProfile = (e) => {
+      e.preventDefault();
+      this.props.history.push('/EditProfilePOC');
+  }
+    uploadProfile = (e) => {
+    e.preventDefault();
+    this.props.history.push('/UploadProfilePOC');
+  }
+  
+  postNewReq = (e) => {
+    e.preventDefault();
+    this.props.history.push('/PostRequirementComponent');
+  }
+  
+  Status = (e) => {
+    e.preventDefault();
+    this.props.history.push('/Status');
+  }
+  closeReq = (e) => {
+    e.preventDefault();
+    this.props.history.push('/CloseRequirement');
+  }
 
     renderRequirement = (req,index) => {
         return(
@@ -107,12 +111,21 @@ class ViewRequirementsPanelist extends Component {
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
-                <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.feedback}>Feedback</Nav.Link>
+                <NavDropdown
+                    title="Requirement"
+                    id="basic-nav-dropdown"
+                  >
+                    <NavDropdown.Item onClick={this.postNewReq}>
+                    Post New Requirement
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.closeReq}>
+                      Close Requirement
+                    </NavDropdown.Item>
+                  </NavDropdown>
               </Nav>
               <Nav>
               <NavDropdown
-                    title={window.firstName + " " + window.lastName}
+                    title={global.firstName + " " + global.lastName}
                     id="basic-nav-dropdown"
                     style={{ marginLeft: "20" }}
                   >
@@ -141,7 +154,7 @@ class ViewRequirementsPanelist extends Component {
         <div className="container" style={{marginTop:"2em"}}>
         <b><Header
             as="h1"
-            content="View Requirements"
+            content="View All Requirements"
             style={{
               fontWeight: "normal",
               textAlign:"center",
@@ -149,6 +162,13 @@ class ViewRequirementsPanelist extends Component {
               padding: "2em",
             }}
           /></b>
+          
+            <DropdownButton id="dropdown-item-button" title="View All Requirements">
+            <Dropdown.Item as="button">Active</Dropdown.Item>
+                <Dropdown.Item as="button">Closed</Dropdown.Item>
+                <Dropdown.Item as="button">In Progress</Dropdown.Item>
+            </DropdownButton>
+<br></br>
             <ReactBootstrap.Table stripped bordered hover>
                 <Table.Header>
                     <Table.Row>
@@ -173,4 +193,4 @@ class ViewRequirementsPanelist extends Component {
     }
 }
  
-export default ViewRequirementsPanelist;
+export default ViewAllRequirements;

@@ -5,59 +5,61 @@ import { Grid, Segment, List, Header, Image } from "semantic-ui-react";
 import FooterComponent from "./FooterComponent";
 import EmployeeService from "../services/EmployeeService";
 
-class ProfileComponent extends Component {
+class ProfilePOC extends Component {
   constructor(props) {
     super(props);
     this.state = {
       firstName:'',
-      lastName:'',
+      lastName:''
     };
   }
 
   viewProfile = () => {
-    this.props.history.push("/ProfileComponent");
+    this.props.history.push("/ProfilePOC");
     
   };
 
+  postNewReq = (e) => {
+    e.preventDefault();
+    this.props.history.push('/PostRequirementComponent');
+  }
+  closeReq = (e) => {
+    e.preventDefault();
+    this.props.history.push('/CloseRequirement');
+  }
+
   editProfile = () => {
-    this.props.history.push("/EditProfileComponent");
+    this.props.history.push("/EditProfilePOC");
+    
   };
 
   uploadProfile = () => {
-    this.props.history.push("/UploadFile");
+    this.props.history.push("/UploadProfilePOC");
     
   };
 
   home=()=>{
-    this.props.history.push("/LandingPage");
+    this.props.history.push("/POCHomeComponent");
   }
 
-  CandidateProfileStatus = (e) => {
+
+  logout = (e) => {
     e.preventDefault();
-    this.props.history.push('/CandidateProfileStatus');
-}
-
-logout = (e) => {
-  e.preventDefault();
-    EmployeeService.logout().then((res) => {
-      let s = res.data;
-      if (s.booleanMsg) {
-        window.userId = "";
-        window.userType = "";
-        window.firstName = "";
-        window.lastName = "";
-        window.contact = "";
-        window.sessionId = "";
-        localStorage.clear();
-        this.props.history.push('/Home');
-      } 
-      
-    });
-};
-
-  // ProfileComponent = (props) => {
-  //   <p>{this.props.sess}</p>;
-  // };
+      EmployeeService.logout().then((res) => {
+        let s = res.data;
+        if (s.booleanMsg) {
+          window.userId = "";
+          window.userType = "";
+          window.firstName = "";
+          window.lastName = "";
+          window.contact = "";
+          window.sessionId = "";
+          localStorage.clear();
+          this.props.history.push('/Home');
+        } 
+        
+      });
+  };
   
   render() {
     return (<div>
@@ -76,8 +78,17 @@ logout = (e) => {
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
-                <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.CandidateProfileStatus}>Profile Status</Nav.Link>
+                <NavDropdown
+                    title="Requirement"
+                    id="basic-nav-dropdown"
+                  >
+                    <NavDropdown.Item onClick={this.postNewReq}>
+                    Post New Requirement
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.closeReq}>
+                      Close Requirement
+                    </NavDropdown.Item>
+                  </NavDropdown>
               </Nav>
               <Nav>
               <NavDropdown
@@ -144,4 +155,4 @@ logout = (e) => {
   }
 }
 
-export default ProfileComponent;
+export default ProfilePOC;

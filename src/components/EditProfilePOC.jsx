@@ -6,7 +6,7 @@ import { Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
 import FooterComponent from './FooterComponent';
 import './GlobalVariable';
 
-class EditProfileComponent extends Component {
+class EditProfilePOC extends Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -44,8 +44,8 @@ class EditProfileComponent extends Component {
         });}
   }
 
-  changeFirstNameHandler= (event) => {
-    this.setState({firstName: event.target.value});
+  changeFirstNameHandler= (value) => {
+    this.setState({firstName: value});
   }
 
     changeLastNameHandler= (event) => {
@@ -57,11 +57,31 @@ class EditProfileComponent extends Component {
   }
 
     cancel=()=>{
-      this.props.history.push('/ProfileComponent');
+      this.props.history.push('/ProfilePOC');
     }
 
     viewProfile = () => {
-      this.props.history.push("/ProfileComponent");
+      this.props.history.push("/ProfilePOC");
+      
+    }
+
+    closeReq = (e) => {
+      e.preventDefault();
+      this.props.history.push('/CloseRequirement');
+    }
+
+	  postNewReq = (e) => {
+		e.preventDefault();
+		this.props.history.push('/PostRequirementComponent');
+	  }
+  
+    editProfile = () => {
+      this.props.history.push("/EditProfilePOC");
+      
+    };
+  
+    uploadProfile = () => {
+      this.props.history.push("/UploadProfilePOC");
       
     };
 
@@ -83,25 +103,10 @@ class EditProfileComponent extends Component {
         });
     };
 
-    CandidateProfileStatus = (e) => {
-      e.preventDefault();
-      this.props.history.push('/CandidateProfileStatus');
-  }
-  
-    editProfile = () => {
-      this.props.history.push("/EditProfileComponent");
-      
-    };
-  
-    uploadProfile = () => {
-      this.props.history.push("/UploadFile");
-      
-    };
-
     home=()=>{
-      this.props.history.push("/LandingPage");
+      this.props.history.push("/POCHomeComponent");
     };
-
+  
     validate() {
       let input = {
         contact: this.state.contact
@@ -141,12 +146,21 @@ class EditProfileComponent extends Component {
               />
               Recruit Right
             </Navbar.Brand>
-              <Nav className="me-auto">
+            <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
-                <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.CandidateProfileStatus}>Profile Status</Nav.Link>
-              </Nav>
+                <NavDropdown
+                    title="Requirement"
+                    id="basic-nav-dropdown"
+                  >
+                    <NavDropdown.Item onClick={this.postNewReq}>
+                    Post New Requirement
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.closeReq}>
+                      Close Requirement
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                  </Nav>
               <Nav>
               <NavDropdown
                     title={window.firstName + " " + window.lastName}
@@ -211,4 +225,4 @@ class EditProfileComponent extends Component {
         }
 }
  
-export default EditProfileComponent;
+export default EditProfilePOC;

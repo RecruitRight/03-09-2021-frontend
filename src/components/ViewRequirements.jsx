@@ -3,6 +3,7 @@ import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import * as ReactBootstrap from 'react-bootstrap';
 import './GlobalVariable';
 import EmployeeService from '../services/EmployeeService';
+import FooterComponent from './FooterComponent';
 import { Header,Table,Menu,Icon, } from "semantic-ui-react";
 
 class ViewRequirements extends Component {
@@ -15,9 +16,9 @@ class ViewRequirements extends Component {
     }
 
     componentDidMount(){
-        let employee = {sessionId:global.sessionId} ;
+        let employee = {sessionId:window.sessionId} ;
         console.log(employee);
-        EmployeeService.pocRequirement(employee).then(res => {
+        EmployeeService.fetchAllActiveRequirements(employee).then(res => {
             let s=res.data;
             console.log(s);
             console.log(s.requirements);
@@ -26,18 +27,50 @@ class ViewRequirements extends Component {
     }
     
     logout = (e) => {
-        e.preventDefault();
-        global.userId="";
-            global.userType="";
-            global.firstName="";
-            global.lastName="";
-            global.contact="";
-        this.props.history.push('/home');
-    }
+      e.preventDefault();
+        EmployeeService.logout().then((res) => {
+          let s = res.data;
+          if (s.booleanMsg) {
+            window.userId = "";
+            window.userType = "";
+            window.firstName = "";
+            window.lastName = "";
+            window.contact = "";
+            window.sessionId = "";
+            localStorage.clear();
+            this.props.history.push('/Home');
+          } 
+          
+        });
+    };
+    
+    viewProfile= (e) => {
+      e.preventDefault();
+      this.props.history.push('/ProfileComponent');
+    };
+  
+    editProfile = (e) => {
+      e.preventDefault();
+      this.props.history.push('/EditProfileComponent');
+  }
+    uploadProfile = (e) => {
+    e.preventDefault();
+    this.props.history.push('/UploadFile');
+  }
+  
+  viewReq = (e) => {
+    e.preventDefault();
+    this.props.history.push('/ViewRequirements');
+  }
+  
+  Status = (e) => {
+    e.preventDefault();
+    this.props.history.push('/Status');
+  }
   
     home = (e) => {
         e.preventDefault();
-        this.props.history.push('/POCHomeComponent');
+        this.props.history.push('/RMGHomeComponent');
     }
 
     renderRequirement = (req,index) => {
@@ -73,24 +106,24 @@ class ViewRequirements extends Component {
             </Navbar.Brand>
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link href="/RMGHomeComponent">Home</Nav.Link>
+                <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link href="/ViewRequirements">View Requirements</Nav.Link>
+                <Nav.Link onClick={this.viewReq}>View Requirements</Nav.Link>
               </Nav>
               <Nav>
               <NavDropdown
-                    title={global.firstName + " " + global.lastName}
+                    title={window.firstName + " " + window.lastName}
                     id="basic-nav-dropdown"
                     style={{ marginLeft: "20" }}
                   >
-                    <NavDropdown.Item href="/ProfileComponent">
+                    <NavDropdown.Item onClick={this.viewProfile}>
                       View Profile
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="/EditProfileComponent">
+                    <NavDropdown.Item onClick={this.editProfile}>
                       Edit Profile
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="/UploadFile">
+                    <NavDropdown.Item onClick={this.uploadProfile}>
                       Upload Resume
                     </NavDropdown.Item>
                   </NavDropdown>
@@ -134,7 +167,7 @@ class ViewRequirements extends Component {
                     {this.state.requirements.map(this.renderRequirement)}   
                 </Table.Body>
             </ReactBootstrap.Table>
-            </div>
+            </div><FooterComponent></FooterComponent>
             </div>
          );
     }

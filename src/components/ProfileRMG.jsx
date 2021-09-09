@@ -5,59 +5,56 @@ import { Grid, Segment, List, Header, Image } from "semantic-ui-react";
 import FooterComponent from "./FooterComponent";
 import EmployeeService from "../services/EmployeeService";
 
-class ProfileComponent extends Component {
+class ProfileRMG extends Component {
   constructor(props) {
     super(props);
     this.state = {
       firstName:'',
-      lastName:'',
+      lastName:''
     };
   }
 
   viewProfile = () => {
-    this.props.history.push("/ProfileComponent");
+    this.props.history.push("/ProfileRMG");
+    
+  };
+
+  viewReq = () => {
+    this.props.history.push("/ViewRequirements");
     
   };
 
   editProfile = () => {
-    this.props.history.push("/EditProfileComponent");
+    this.props.history.push("/EditProfileRMG");
+    
   };
 
   uploadProfile = () => {
-    this.props.history.push("/UploadFile");
+    this.props.history.push("/UploadProfileRMG");
     
   };
 
   home=()=>{
-    this.props.history.push("/LandingPage");
+    this.props.history.push("/RMGHomeComponent");
   }
 
-  CandidateProfileStatus = (e) => {
+  logout = (e) => {
     e.preventDefault();
-    this.props.history.push('/CandidateProfileStatus');
-}
-
-logout = (e) => {
-  e.preventDefault();
-    EmployeeService.logout().then((res) => {
-      let s = res.data;
-      if (s.booleanMsg) {
-        window.userId = "";
-        window.userType = "";
-        window.firstName = "";
-        window.lastName = "";
-        window.contact = "";
-        window.sessionId = "";
-        localStorage.clear();
-        this.props.history.push('/Home');
-      } 
-      
-    });
-};
-
-  // ProfileComponent = (props) => {
-  //   <p>{this.props.sess}</p>;
-  // };
+      EmployeeService.logout().then((res) => {
+        let s = res.data;
+        if (s.booleanMsg) {
+          window.userId = "";
+          window.userType = "";
+          window.firstName = "";
+          window.lastName = "";
+          window.contact = "";
+          window.sessionId = "";
+          localStorage.clear();
+          this.props.history.push('/Home');
+        } 
+        
+      });
+  };
   
   render() {
     return (<div>
@@ -77,7 +74,7 @@ logout = (e) => {
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.CandidateProfileStatus}>Profile Status</Nav.Link>
+                <Nav.Link onClick={this.viewReq}>View Requirements</Nav.Link>
               </Nav>
               <Nav>
               <NavDropdown
@@ -144,4 +141,4 @@ logout = (e) => {
   }
 }
 
-export default ProfileComponent;
+export default ProfileRMG;

@@ -3,6 +3,7 @@ import EmployeeService from "../services/EmployeeService";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import "./GlobalVariable";
 import {Button,Form,Grid,Header,Image,Segment,Dropdown} from "semantic-ui-react";
+import FooterComponent from "./FooterComponent";
 
 class SignUp extends Component {
   constructor(props) {
@@ -24,8 +25,7 @@ class SignUp extends Component {
     this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
     this.changeContactHandler = this.changeContactHandler.bind(this);
     this.changePasswordHandler = this.changePasswordHandler.bind(this);
-    this.changeConfirmPasswordHandler =
-      this.changeConfirmPasswordHandler.bind(this);
+    this.changeConfirmPasswordHandler =this.changeConfirmPasswordHandler.bind(this);
     this.changeEmailHandler = this.changeEmailHandler.bind(this);
     this.saveOrUpdateEmployee = this.saveOrUpdateEmployee.bind(this);
   }
@@ -57,6 +57,21 @@ class SignUp extends Component {
       });
     }
   };
+
+  signUp = (e) => {
+    e.preventDefault();
+    this.props.history.push('/signup');
+}
+
+home = (e) => {
+    e.preventDefault();
+    this.props.history.push('/home');
+}
+
+login = (e) => {
+  e.preventDefault();
+  this.props.history.push('/login');
+}
 
   changeFirstNameHandler = (event) => {
     this.setState({ firstName: event.target.value });
@@ -138,15 +153,6 @@ class SignUp extends Component {
 
     return isValid;
   }
-  login = (e) => {
-    e.preventDefault();
-    this.props.history.push("/login");
-  };
-
-  home = (e) => {
-    e.preventDefault();
-    this.props.history.push("/home");
-  };
 
   render() {
     return (
@@ -163,7 +169,7 @@ class SignUp extends Component {
               <Nav>
               <Nav className="me-auto">
                   <Nav.Link>|</Nav.Link>
-                  <Nav.Link href="/login">
+                  <Nav.Link onClick={this.login}>
                     Log In
                   </Nav.Link>
                 </Nav>
@@ -280,7 +286,7 @@ class SignUp extends Component {
               </Segment>
             </Form>
           </Grid.Column>
-        </Grid>
+        </Grid><FooterComponent></FooterComponent>
       </div>
     );
   }

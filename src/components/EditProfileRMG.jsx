@@ -6,7 +6,7 @@ import { Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
 import FooterComponent from './FooterComponent';
 import './GlobalVariable';
 
-class EditProfileComponent extends Component {
+class EditProfileRMG extends Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -44,8 +44,8 @@ class EditProfileComponent extends Component {
         });}
   }
 
-  changeFirstNameHandler= (event) => {
-    this.setState({firstName: event.target.value});
+  changeFirstNameHandler= (value) => {
+    this.setState({firstName: value});
   }
 
     changeLastNameHandler= (event) => {
@@ -57,12 +57,26 @@ class EditProfileComponent extends Component {
   }
 
     cancel=()=>{
-      this.props.history.push('/ProfileComponent');
+      this.props.history.push('/ProfileRMG');
     }
 
     viewProfile = () => {
-      this.props.history.push("/ProfileComponent");
+      this.props.history.push("/ProfileRMG");
       
+    };
+  
+    editProfile = () => {
+      this.props.history.push("/EditProfileRMG");
+      
+    };
+  
+    uploadProfile = () => {
+      this.props.history.push("/UploadProfileRMG");
+      
+    };
+
+    home=()=>{
+      this.props.history.push("/RMGHomeComponent");
     };
 
     logout = (e) => {
@@ -81,25 +95,6 @@ class EditProfileComponent extends Component {
           } 
           
         });
-    };
-
-    CandidateProfileStatus = (e) => {
-      e.preventDefault();
-      this.props.history.push('/CandidateProfileStatus');
-  }
-  
-    editProfile = () => {
-      this.props.history.push("/EditProfileComponent");
-      
-    };
-  
-    uploadProfile = () => {
-      this.props.history.push("/UploadFile");
-      
-    };
-
-    home=()=>{
-      this.props.history.push("/LandingPage");
     };
 
     validate() {
@@ -144,8 +139,6 @@ class EditProfileComponent extends Component {
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
-                <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.CandidateProfileStatus}>Profile Status</Nav.Link>
               </Nav>
               <Nav>
               <NavDropdown
@@ -211,4 +204,4 @@ class EditProfileComponent extends Component {
         }
 }
  
-export default EditProfileComponent;
+export default EditProfileRMG;

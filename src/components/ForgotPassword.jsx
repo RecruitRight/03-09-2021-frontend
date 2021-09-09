@@ -8,38 +8,64 @@ class ForgotPassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: ""
+            userId: "",
+            errors: {},
           }
+          global.userId='';
           this.Onchangeuser = this.Onchangeuser.bind(this);
     }
+
+    
+  Login = (e) => {
+    e.preventDefault();
+    this.props.history.push('/login');
+  };
+
+
+  signUp = (e) => {
+    e.preventDefault();
+    this.props.history.push('/signup');
+}
+
+home = (e) => {
+    e.preventDefault();
+    this.props.history.push('/home');
+}
 
     Onchangeuser = (event) => {
         this.setState({ userId: event.target.value });
       }; 
-
-    reset = (e) => {
-        e.preventDefault();
-        let employee = {
-            password: this.state.password,
-            verificationCode: this.state.verificationCode,
-            userId:this.state.userId
+    
+      validate() {
+        let input = {
+          userId: this.state.userId
         };
-        EmployeeService.resetPassword(employee).then((res) => {
-        let s = res.data;
-        if (s.booleanMsg) {
-          this.props.history.push("/login");
-          alert("Password Changed Successfully");
-        } else {
-          console.log("unsuccessful");
-          this.props.history.push("/forgotPassword");
-          alert("Error! Could not reset your password, please make sure your verification code is correct.");
+        let errors = {};
+        let isValid = true;
+    
+        if (typeof input["userId"] !== "undefined") {
+          var pattern = new RegExp(
+            /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+          );
+          if (!pattern.test(input["userId"])) {
+            isValid = false;
+            errors["userId"] = "Please enter valid email address.";
+          }
         }
-      });
-    }
+    
+        this.setState({
+          errors: errors,
+        });
+    
+        return isValid;
+      }
     
     forgotpswd = (e) => {
         e.preventDefault();
+        if(this.validate()){
        let employee = {userId: this.state.userId};
+        global.userId=this.state.userId;
+        console.log("userId to be passed in back end"+this.state.userId);
         EmployeeService.forgotPassword(employee).then((res) => {
         let s = res.data;
         console.log(s);
@@ -52,7 +78,7 @@ class ForgotPassword extends Component {
           alert("Error! Could not send a verification code, please make sure your email address is correct.");
         }
       });
-    }
+    }}
 
     render() { 
         return ( 
@@ -80,9 +106,9 @@ class ForgotPassword extends Component {
               <Nav>
                 <Nav className="me-auto">
                   <Nav.Link>|</Nav.Link>
-                  <Nav.Link href="/login">Log In</Nav.Link>
+                  <Nav.Link onClick={this.Login}>Log In</Nav.Link>
                   <Nav.Link>|</Nav.Link>
-                  <Nav.Link href="/signUp">
+                  <Nav.Link onClick={this.signUp}>
                     Create an Account?
                   </Nav.Link>
                 </Nav>
@@ -111,6 +137,7 @@ class ForgotPassword extends Component {
                   onChange={this.Onchangeuser}
                   required="required"
                 />
+                <div className="text-danger">{this.state.errors.userId}</div>
                 <Button
                   color="teal"
                   fluid
@@ -126,11 +153,11 @@ class ForgotPassword extends Component {
             </Form><br></br>
             <div class="alert alert-info" role="alert" textAlign="left">
                 <b>Steps for password reset:</b><br></br>
-                1) Click on <i>"Send verification code"</i> hyperlink and enter the code in verification code field.<br></br>
+                1) Click on <i>"Send verification code"</i> and enter the code in verification code field.<br></br>
                 2) Now, Set your new password and confirmPassword.
         </div>
           </Grid.Column>
-        </Grid>
+        </Grid><FooterComponent></FooterComponent>
        </div>
          );
 

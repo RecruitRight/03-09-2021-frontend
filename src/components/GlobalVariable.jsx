@@ -1,7 +1,7 @@
-global.userId="";
-global.userType="";
-global.firstName="";
-global.lastName="";
-global.contact="";
-global.sessionId="";
+window.userId="";
+window.userType="";
+window.firstName="";
+window.lastName="";
+window.contact="";
+window.sessionId="";
 

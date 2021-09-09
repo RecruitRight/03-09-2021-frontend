@@ -6,7 +6,7 @@ import { Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
 import FooterComponent from './FooterComponent';
 import './GlobalVariable';
 
-class EditProfileComponent extends Component {
+class EditProfileEmployee extends Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -44,8 +44,26 @@ class EditProfileComponent extends Component {
         });}
   }
 
-  changeFirstNameHandler= (event) => {
-    this.setState({firstName: event.target.value});
+  logout = (e) => {
+    e.preventDefault();
+      EmployeeService.logout().then((res) => {
+        let s = res.data;
+        if (s.booleanMsg) {
+          window.userId = "";
+          window.userType = "";
+          window.firstName = "";
+          window.lastName = "";
+          window.contact = "";
+          window.sessionId = "";
+          localStorage.clear();
+          this.props.history.push('/Home');
+        } 
+        
+      });
+  };
+  
+  changeFirstNameHandler= (value) => {
+    this.setState({firstName: value});
   }
 
     changeLastNameHandler= (event) => {
@@ -57,51 +75,28 @@ class EditProfileComponent extends Component {
   }
 
     cancel=()=>{
-      this.props.history.push('/ProfileComponent');
+      this.props.history.push('/ProfileEmployee');
     }
 
     viewProfile = () => {
-      this.props.history.push("/ProfileComponent");
+      this.props.history.push("/ProfileEmployee");
       
     };
-
-    logout = (e) => {
-      e.preventDefault();
-        EmployeeService.logout().then((res) => {
-          let s = res.data;
-          if (s.booleanMsg) {
-            window.userId = "";
-            window.userType = "";
-            window.firstName = "";
-            window.lastName = "";
-            window.contact = "";
-            window.sessionId = "";
-            localStorage.clear();
-            this.props.history.push('/Home');
-          } 
-          
-        });
-    };
-
-    CandidateProfileStatus = (e) => {
-      e.preventDefault();
-      this.props.history.push('/CandidateProfileStatus');
-  }
   
     editProfile = () => {
-      this.props.history.push("/EditProfileComponent");
+      this.props.history.push("/EditProfileEmployee");
       
     };
   
     uploadProfile = () => {
-      this.props.history.push("/UploadFile");
+      this.props.history.push("/UploadFileEmployee");
       
     };
 
     home=()=>{
-      this.props.history.push("/LandingPage");
+      this.props.history.push("/EmployeeHomeComponent");
     };
-
+  
     validate() {
       let input = {
         contact: this.state.contact
@@ -144,8 +139,6 @@ class EditProfileComponent extends Component {
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
-                <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.CandidateProfileStatus}>Profile Status</Nav.Link>
               </Nav>
               <Nav>
               <NavDropdown
@@ -211,4 +204,4 @@ class EditProfileComponent extends Component {
         }
 }
  
-export default EditProfileComponent;
+export default EditProfileEmployee;

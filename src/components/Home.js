@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { Form ,Nav,NavDropdown,Navbar} from "react-bootstrap";
-import pic from "../images/Were.png";
 import './GlobalVariable';
 import {
   Container,
   Button,
   Divider,
   Grid,
+  Icon,
   Header,
   Image,
   List,
   Segment,
 } from "semantic-ui-react";
+import FooterComponent from './FooterComponent';
 
 const  style = {
   h3: {
@@ -30,7 +31,7 @@ class Home extends Component {
     this.state = {  }
   }
 
-  signUp = (e) => {
+signUp = (e) => {
     e.preventDefault();
     this.props.history.push('/signup');
 }
@@ -38,6 +39,11 @@ class Home extends Component {
 home = (e) => {
     e.preventDefault();
     this.props.history.push('/home');
+}
+
+login = (e) => {
+  e.preventDefault();
+  this.props.history.push('/login');
 }
   render() { 
     return ( 
@@ -58,14 +64,14 @@ home = (e) => {
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.home}>About Us</Nav.Link>
+                <Nav.Link href="#AboutUs">About Us</Nav.Link>
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.home}>Contact</Nav.Link>
+                <Nav.Link href="#Contact">Contact</Nav.Link>
               </Nav>
               <Nav>
                 <Nav className="me-auto">
                   <Nav.Link>|</Nav.Link>
-                  <Nav.Link href="/signUp">
+                  <Nav.Link onClick={this.signUp}>
                     Create an Account?
                   </Nav.Link>
                 </Nav>
@@ -109,14 +115,39 @@ home = (e) => {
             }}
           /><br></br>
           <div className="text-center">
-          <Button as="a" size="large" href="/login">
+          <Button as="a" size="large" onClick={this.login}>
             Get Started
           </Button>
           </div>
         </Container>
       </Segment>
-  
-      <Segment style={{ padding: "8em 0em" }} vertical>
+      <div style={{backgroundColor:"#f8f9fa"}}>
+      <br></br><br></br><br></br>
+          <Header as="h1" style={{ fontSize: "2em" ,textAlign:"center"}}>
+                    Our Services
+                  </Header><br></br><br></br>
+          <div class="ui centered cards" >
+            <div class="ui card" style={{width:250,height:200}}>
+              <div class="content">
+                <div class="header" style={{fontSize:25, textAlign:"center"}} >Easy Apply</div><br></br>
+                <div class="description"><p style={{fontSize:20, textAlign:"center"}}>Single step protocol is used.</p></div>
+              </div>
+            </div>
+            <div class="ui card" style={{width:250,height:200}}>
+              <div class="content">
+                <div class="header" style={{fontSize:25, textAlign:"center"}}>Opportunities</div><br></br>
+                <div class="description"><p style={{fontSize:20, textAlign:"center"}}>We market your skills to ove 1000+ decision makers.</p></div>
+              </div>
+            </div>
+            <div class="ui card" style={{width:250,height:200}}>
+              <div class="content">
+                <div class="header" style={{fontSize:25, textAlign:"center"}}>Decision</div><br></br>
+                <div class="description"><p style={{fontSize:20, textAlign:"center"}}>We provide the best suitables to you.</p></div>
+              </div>
+            </div>
+          </div>
+            
+            <div style={{ padding: "8em 0em"}} vertical id="AboutUs" >
             <Grid container stackable verticalAlign="middle">
               <Grid.Row>
                 <Grid.Column floated="right" width={6}>
@@ -149,76 +180,17 @@ home = (e) => {
                 </Grid.Column>
               </Grid.Row>
             </Grid>
-          </Segment>
-      <Segment style={{ padding: "0em" }} class="bg-light" vertical>
-        <Grid celled="internally" columns="equal" stackable>
-          <Grid.Row textAlign="center">
-            <Grid.Column style={{ paddingBottom: "5em", paddingTop: "5em" }}>
-              <Header as="h3" style={{ fontSize: "2em" }}>
-                "What a Company"
-              </Header>
-              <p style={{ fontSize: "1.33em" }}>
-                That is what they all say about us
-              </p>
-            </Grid.Column>
-            <Grid.Column style={{ paddingBottom: "5em", paddingTop: "5em" }}>
-              <Header as="h3" style={{ fontSize: "2em" }}>
-                "I shouldn't have gone with their competitor."
-              </Header>
-              <p style={{ fontSize: "1.33em" }}>
-                <Image avatar src="/images/avatar/large/nan.jpg" />
-                <b>Nan</b> Chief Fun Officer Acme Toys
-              </p>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment>
-  
-      <Segment style={{ padding: "8em 0em" }} vertical>
-        <Container text>
-          <Header as="h3" style={{ fontSize: "2em" }}>
-          Recruit Right, the best.
-          </Header>
-          <p style={{ fontSize: "1.33em" }}>
-            Let us market your career to over 1000+ decision makers. Apply Now!
-          </p>
-          <Button as="a" size="large">
-            Read More
-          </Button>
-  
-          <Divider
-            as="h4"
-            className="header"
-            horizontal
-            style={{ margin: "3em 0em", textTransform: "uppercase" }}
-          >
-            <a href="#">Case Studies</a>
-          </Divider>
-  
-          <Header as="h3" style={{ fontSize: "2em" }}>
-            Did We Tell You About Our Bananas?
-          </Header>
-          <p style={{ fontSize: "1.33em" }}>
-            Yes I know you probably disregarded the earlier boasts as non-sequitur
-            filler content, but it's really true. It took years of gene splicing
-            and combinatory DNA research, but our bananas can really dance.
-          </p>
-          <Button as="a" size="large">
-            I'm Still Quite Interested
-          </Button>
-        </Container>
-      </Segment>
-  
-      <Segment
-        className="bg-light"
-        style={{ padding: "1em 0em" }}
-        textAlign="center"
-        vertical
-      >
-        <div class="text-center mb-5">
-          <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
-            <i class="bi bi-envelope"></i>
           </div>
+      <div
+        
+        style={{ padding: "2em 0em" }}
+        textAlign="center"
+        vertical 
+        id="Contact"
+      >
+        <div className="text-center mb-5 bg-light" >
+          <br></br><br></br>
+          <Icon name='mail' size='huge' /><br></br>
           <h2 class="fw-bolder">Get in touch</h2>
           <p class="lead mb-0">We'd love to hear from you</p><br></br><br></br>
           <div class="ui form">
@@ -228,13 +200,16 @@ home = (e) => {
             <Button as="a" size="large">
             Send
           </Button>
+          
           </div>
+          <br></br><br></br><br></br>
         </div>
-      </Segment>
+      </div>
+      </div>
       <Segment
         inverted
-        vertical
-        style={{ margin: "5em 0em 0em", padding: "5em 0em" }}
+        vertical 
+        style={{ margin: "0em 0em 0em", padding: "8em 0em" }}
       >
         <Container textAlign="center">
           <Grid divided inverted stackable>
@@ -262,6 +237,8 @@ home = (e) => {
                 according to their profile.
               </p>
             </Grid.Column>
+            <Grid.Row ><br></br><br></br>
+              <p textAlign="center">All Rights Reserved to Recruit Right</p></Grid.Row>
           </Grid>
         </Container>
       </Segment>

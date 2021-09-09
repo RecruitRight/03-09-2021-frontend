@@ -4,10 +4,6 @@ const EMPLOYEE_API_BASE_URL = "";
 
 class EmployeeService {
 
-    getEmployees(){
-        return axios.get(EMPLOYEE_API_BASE_URL);
-    }
-
     signUp(employee){
         return axios.post("http://localhost:8080/signup", employee);
     }
@@ -17,7 +13,12 @@ class EmployeeService {
     }
 
     logout(employee){
-        return axios.post("http://localhost:8080/logout", employee);
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.post("http://localhost:8080/user/logout", employee,config);
     }
 
     forgotPassword(employee){
@@ -28,28 +29,94 @@ class EmployeeService {
         return axios.post("http://localhost:8080/resetPassword", employee);
     }
 
+    candidateProfileStatus(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.post("http://localhost:8080/candidate/profileStatus ", employee,config);
+    }
+
     pocRequirement(employee){
-        return axios.post("http://localhost:8080/poc/requirementList", employee);
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.post("http://localhost:8080/poc/requirementList", employee,config);
     }
 
     postRequirement(details){
-        return axios.post("http://localhost:8080/postRequirement", details);
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.post("http://localhost:8080/postRequirement", details,config);
     }
 
-    updateProfile(employee){
-        return axios.post("http://localhost:8080/login", employee);
+    closeRequirement(details){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.post("http://localhost:8080/poc/closeRequirement", details,config);
+    }
+
+    editDetails(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.post("http://localhost:8080/user/editDetails", employee,config);
+    }
+
+    pocEligibleProfiles(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.post("http://localhost:8080/poc/requirement/eligibleProfiles", employee,config);
+    }
+
+    fetchAllActiveRequirements(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.get("http://localhost:8080/fetchAllActiveRequirements", employee,config);
     }
 
     Upload(formData){
-        return axios.post("http://localhost:8080/uploadProfile", formData);
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.post("http://localhost:8080/uploadProfile", formData,config);
     }
 
     feedback(formData){
-        return axios.post("http://localhost:8080/feedBack", formData);
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.post("http://localhost:8080/feedBack", formData,config);
     }
 
     uploadResume(details){
-        return axios.post("http://localhost:8080/postRequirement", details);
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.post("http://localhost:8080/postRequirement", details,config);
     }
 
 }
