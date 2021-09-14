@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import './GlobalVariable';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import { Grid, Segment, List, Header, Image } from "semantic-ui-react";
 import FooterComponent from "./FooterComponent";
 import EmployeeService from "../services/EmployeeService";
 
@@ -14,28 +13,33 @@ class ProfileEmployee extends Component {
     };
   }
 
-  viewProfile = () => {
-    this.props.history.push("/ProfileEmployee");
-    
+  viewProfile= (e) => {
+    e.preventDefault();
+    this.props.history.push('/ProfileEmployee');
   };
 
-  viewReq = () => {
-    this.props.history.push("/ViewRequirementsPanelist");
-    
-  };
+  editProfile = (e) => {
+    e.preventDefault();
+    this.props.history.push('/EditProfileEmployee');
+}
+  uploadProfile = (e) => {
+  e.preventDefault();
+  this.props.history.push('/UploadProfileEmployee');
+}
 
-  editProfile = () => {
-    this.props.history.push("/EditProfileEmployee");
-    
-  };
+feedback=(e) =>{
+  e.preventDefault();
+  this.props.history.push('/FeedbackComponent');
+}
 
-  uploadProfile = () => {
-    this.props.history.push("/UploadFile");
-    
-  };
+viewReqPanelist = (e) => {
+  e.preventDefault();
+  this.props.history.push('/ViewRequirementsPanelist');
+}
 
-  home=()=>{
-    this.props.history.push("/EmployeeHomeComponent");
+  home = (e) => {
+      e.preventDefault();
+      this.props.history.push('/EmployeeHomeComponent');
   }
 
   logout = (e) => {
@@ -56,11 +60,6 @@ class ProfileEmployee extends Component {
       });
   };
 
-
-  // ProfileComponent = (props) => {
-  //   <p>{this.props.sess}</p>;
-  // };
-  
   render() {
     return (<div>
       <Navbar bg="dark" variant="dark" fixed="top">
@@ -69,6 +68,7 @@ class ProfileEmployee extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt = ""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
@@ -79,7 +79,9 @@ class ProfileEmployee extends Component {
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.viewReq}>View Requirements</Nav.Link>
+                <Nav.Link onClick={this.viewReqPanelist}>All Requirements</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.feedback}>Feedback</Nav.Link>
               </Nav>
               <Nav>
               <NavDropdown
@@ -92,10 +94,6 @@ class ProfileEmployee extends Component {
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.editProfile}>
                       Edit Profile
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={this.uploadProfile}>
-                      Upload Resume
                     </NavDropdown.Item>
                   </NavDropdown>
                 <Nav className="me-auto">

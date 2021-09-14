@@ -1,7 +1,5 @@
-import axios from 'axios';
-import React, { Component,defaultValue} from 'react';
+import React, { Component} from 'react';
 import EmployeeService from '../services/EmployeeService';
-import UploadFile from './UploadFile';
 import { Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
 import FooterComponent from './FooterComponent';
 import './GlobalVariable';
@@ -34,18 +32,18 @@ class EditProfileRMG extends Component {
         EmployeeService.editDetails(employee).then(res =>{
             let s=res.data;
             if(s.booleanMsg){
-            this.props.history.push('/ProfileComponent');
+            this.props.history.push('/ProfileRMG');
             alert("Updated details successfully");
             }
             else{
               alert("Error: Update details fail");
-              this.props.history.push('/EditProfileComponent');
+              this.props.history.push('/EditProfileRMG');
             }
         });}
   }
 
-  changeFirstNameHandler= (value) => {
-    this.setState({firstName: value});
+  changeFirstNameHandler= (event) => {
+    this.setState({firstName: event.target.value});
   }
 
     changeLastNameHandler= (event) => {
@@ -60,24 +58,39 @@ class EditProfileRMG extends Component {
       this.props.history.push('/ProfileRMG');
     }
 
-    viewProfile = () => {
-      this.props.history.push("/ProfileRMG");
-      
+    viewProfile= (e) => {
+      e.preventDefault();
+      this.props.history.push('/ProfileRMG');
     };
   
-    editProfile = () => {
-      this.props.history.push("/EditProfileRMG");
-      
-    };
+    editProfile = (e) => {
+      e.preventDefault();
+      this.props.history.push('/EditProfileRMG');
+  }
+    uploadProfile = (e) => {
+    e.preventDefault();
+    this.props.history.push('/UploadProfileRMG');
+  }
   
-    uploadProfile = () => {
-      this.props.history.push("/UploadProfileRMG");
-      
-    };
-
-    home=()=>{
-      this.props.history.push("/RMGHomeComponent");
-    };
+  viewReq = (e) => {
+    e.preventDefault();
+    this.props.history.push('/ViewRequirements');
+  }
+  
+  uploadedProfiles = (e) => {
+    e.preventDefault();
+    this.props.history.push('/RMGUploadedProfiles');
+  }
+  
+  viewAllUP = (e) => {
+    e.preventDefault();
+    this.props.history.push('/ViewAllUserProfiles');
+  }
+  
+  RMGViewAllReq = (e) => {
+    e.preventDefault();
+    this.props.history.push('/RMGViewAllRequirements');
+  }
 
     logout = (e) => {
       e.preventDefault();
@@ -109,7 +122,7 @@ class EditProfileRMG extends Component {
         if (!pattern.test(input["contact"])) {
           isValid = false;
           errors["contact"] = "Please enter only number.";
-        } else if (input["contact"].length != 10) {
+        } else if (input["contact"].length !== 10) {
           isValid = false;
           errors["contact"] = "Please enter valid phone number.";
         }
@@ -130,6 +143,7 @@ class EditProfileRMG extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
@@ -139,6 +153,24 @@ class EditProfileRMG extends Component {
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
+                <NavDropdown
+                    title="Services"
+                    id="basic-nav-dropdown"
+                  >
+                    <NavDropdown.Item onClick={this.uploadProfile}>
+                      Upload Candidate Profiles
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.uploadedProfiles}>
+                    Your Uploaded Profiles
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={this.viewAllUP}>
+                    View All User Profiles
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.RMGViewAllReq}>
+                    View All Requirements
+                    </NavDropdown.Item>
+                  </NavDropdown>
               </Nav>
               <Nav>
               <NavDropdown
@@ -151,10 +183,6 @@ class EditProfileRMG extends Component {
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.editProfile}>
                       Edit Profile
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={this.uploadProfile}>
-                      Upload Resume
                     </NavDropdown.Item>
                   </NavDropdown>
                 <Nav className="me-auto">

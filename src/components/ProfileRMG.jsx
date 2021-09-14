@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import './GlobalVariable';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import { Grid, Segment, List, Header, Image } from "semantic-ui-react";
 import FooterComponent from "./FooterComponent";
 import EmployeeService from "../services/EmployeeService";
 
@@ -64,6 +63,7 @@ class ProfileRMG extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
@@ -73,8 +73,24 @@ class ProfileRMG extends Component {
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
-                <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.viewReq}>View Requirements</Nav.Link>
+                <NavDropdown
+                    title="Services"
+                    id="basic-nav-dropdown"
+                  >
+                    <NavDropdown.Item onClick={this.uploadProfile}>
+                      Upload Candidate Profiles
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.uploadedProfiles}>
+                    Your Uploaded Profiles
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={this.viewAllUP}>
+                    View All User Profiles
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.RMGViewAllReq}>
+                    View All Requirements
+                    </NavDropdown.Item>
+                  </NavDropdown>
               </Nav>
               <Nav>
               <NavDropdown
@@ -87,10 +103,6 @@ class ProfileRMG extends Component {
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.editProfile}>
                       Edit Profile
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={this.uploadProfile}>
-                      Upload Resume
                     </NavDropdown.Item>
                   </NavDropdown>
                 <Nav className="me-auto">

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import EmployeeService from "../services/EmployeeService";
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Container, Nav} from "react-bootstrap";
 import "./GlobalVariable";
-import {Button,Form,Grid,Header,Image,Segment,Dropdown} from "semantic-ui-react";
+import {Button,Form,Grid,Header,Image,Segment} from "semantic-ui-react";
 import FooterComponent from "./FooterComponent";
 
 class SignUp extends Component {
@@ -115,20 +115,21 @@ login = (e) => {
     };
     let errors = {};
     let isValid = true;
+    var pattern;
 
     if (typeof input["contact"] !== "undefined") {
-      var pattern = new RegExp(/^[0-9\b]+$/);
+      pattern = new RegExp(/^[0-9\b]+$/);
       if (!pattern.test(input["contact"])) {
         isValid = false;
         errors["contact"] = "Please enter only number.";
-      } else if (input["contact"].length != 10) {
+      } else if (input["contact"].length !== 10) {
         isValid = false;
         errors["contact"] = "Please enter valid phone number.";
       }
     }
 
     if (typeof input["emailId"] !== "undefined") {
-      var pattern = new RegExp(
+      pattern = new RegExp(
         /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
       );
       if (!pattern.test(input["emailId"])) {
@@ -141,7 +142,7 @@ login = (e) => {
       typeof input["password"] !== "undefined" &&
       typeof input["confirmPassword"] !== "undefined"
     ) {
-      if (input["password"] != input["confirmPassword"]) {
+      if (input["password"] !== input["confirmPassword"]) {
         isValid = false;
         errors["password"] = "Passwords don't match.";
       }
@@ -159,12 +160,23 @@ login = (e) => {
       <div>
         <Navbar bg="dark" variant="dark" fixed="top">
           <Container>
-            <Navbar.Brand href="#home">Recruit Right</Navbar.Brand>
+            <Navbar.Brand href="#home">
+            <img
+                alt=""
+                src="images/logosymbol.png"
+                width="30"
+                style={{ marginRight: "1.5em"}}
+              />
+              Recruit Right</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.home}>About Us</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.home}>Contact</Nav.Link>
               </Nav>
               <Nav>
               <Nav className="me-auto">

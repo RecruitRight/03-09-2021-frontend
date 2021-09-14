@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import './GlobalVariable';
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import { Grid, Segment, List, Header, Image } from "semantic-ui-react";
+import { Navbar, Container, Nav, NavDropdown ,Dropdown} from 'react-bootstrap';
 import FooterComponent from "./FooterComponent";
 import EmployeeService from "../services/EmployeeService";
 
@@ -14,34 +13,48 @@ class ProfilePOC extends Component {
     };
   }
 
-  viewProfile = () => {
-    this.props.history.push("/ProfilePOC");
-    
-  };
-
-  postNewReq = (e) => {
+  viewProfile= (e) => {
     e.preventDefault();
-    this.props.history.push('/PostRequirementComponent');
-  }
-  closeReq = (e) => {
+    this.props.history.push('/ProfilePOC');
+  };
+
+  editProfile = (e) => {
     e.preventDefault();
-    this.props.history.push('/CloseRequirement');
-  }
+    this.props.history.push('/EditProfilePOC');
+}
+  uploadProfile = (e) => {
+  e.preventDefault();
+  this.props.history.push('/UploadProfilePOC');
+}
 
-  editProfile = () => {
-    this.props.history.push("/EditProfilePOC");
-    
-  };
+postNewReq = (e) => {
+  e.preventDefault();
+  this.props.history.push('/PostRequirementComponent');
+}
 
-  uploadProfile = () => {
-    this.props.history.push("/UploadProfilePOC");
-    
-  };
+closeReq = (e) => {
+  e.preventDefault();
+  this.props.history.push('/CloseRequirement');
+}
 
-  home=()=>{
-    this.props.history.push("/POCHomeComponent");
-  }
+ViewAllReq = (e) => {
+  e.preventDefault();
+  this.props.history.push('/ViewAllRequirements');
+}
 
+ViewReqPOC = (e) => {
+  e.preventDefault();
+  this.props.history.push('/ViewRequirements');
+}
+ViewReqEpPOC = (e) => {
+  e.preventDefault();
+  this.props.history.push('/ViewRequirementsEligibleProfiles');
+}
+
+  home = (e) => {
+    e.preventDefault();
+    this.props.history.push('/POCHomeComponent');
+}
 
   logout = (e) => {
     e.preventDefault();
@@ -69,6 +82,7 @@ class ProfilePOC extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt =""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
@@ -79,7 +93,7 @@ class ProfilePOC extends Component {
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <NavDropdown
-                    title="Requirement"
+                    title="Services"
                     id="basic-nav-dropdown"
                   >
                     <NavDropdown.Item onClick={this.postNewReq}>
@@ -87,6 +101,16 @@ class ProfilePOC extends Component {
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.closeReq}>
                       Close Requirement
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.ViewAllReq}>
+                      View All Requirements
+                    </NavDropdown.Item>
+                    <Dropdown.Divider />
+                    <NavDropdown.Item onClick={this.ViewReqPOC}>
+                      View Your Requirements
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.ViewReqEpPOC}>
+                      View Your Eligible Profiles
                     </NavDropdown.Item>
                   </NavDropdown>
               </Nav>
@@ -101,10 +125,6 @@ class ProfilePOC extends Component {
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.editProfile}>
                       Edit Profile
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={this.uploadProfile}>
-                      Upload Resume
                     </NavDropdown.Item>
                   </NavDropdown>
                 <Nav className="me-auto">

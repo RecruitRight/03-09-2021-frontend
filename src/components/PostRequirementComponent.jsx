@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import EmployeeService from '../services/EmployeeService';
 import {components} from "react-select";
 import ReactSelect from 'react-select';
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown ,Dropdown} from 'react-bootstrap';
 
 Option = (props) => {
     return (
@@ -125,17 +125,17 @@ class PostRequirementComponent extends Component {
                 }
                 break;
             case 'IS-BFSI-US West':
-                for(var i of this.state.bfsiUSWestList) {
+                for(i of this.state.bfsiUSWestList) {
                     this.state.DDL12.push(i);
                 }
                 break;
             case 'IS-Life Sciences NA':
-                for(var i of this.state.lifeSciencesList) {
+                for(i of this.state.lifeSciencesList) {
                     this.state.DDL12.push(i);
                 }
                 break;
             case 'CL-BTS':
-                for(var i of this.state.clBtsList) {
+                for(i of this.state.clBtsList) {
                     this.state.DDL12.push(i);
                 }
                 break;
@@ -153,27 +153,27 @@ class PostRequirementComponent extends Component {
         this.state.DDL3=[];
         switch(e.target.value){
             case 'Developer':
-                for(var i of this.state.developerList) {
+                for( var i of this.state.developerList) {
                     this.state.DDL3.push(i);
                 }
                 break;
             case 'Tester':
-                for(var i of this.state.testerList) {
+                for(i of this.state.testerList) {
                     this.state.DDL3.push(i);
                 }
                 break;
             case 'Technical Architect':
-                for(var i of this.state.technicalArchitectList) {
+                for(i of this.state.technicalArchitectList) {
                     this.state.DDL3.push(i);
                 }
                 break;
             case 'Bussiness Analyst':
-                for(var i of this.state.bussinessAnalystList) {
+                for(i of this.state.bussinessAnalystList) {
                     this.state.DDL3.push(i);
                 }
                 break;
             case 'Manager':
-                for(var i of this.state.managerList) {
+                for(i of this.state.managerList) {
                     this.state.DDL3.push(i);
                 }
                 break;
@@ -190,17 +190,17 @@ class PostRequirementComponent extends Component {
                 }
                 break;
             case 'Frontend Developer':
-                for(var i of this.state.frontendList) {
+                for(i of this.state.frontendList) {
                     this.state.DDL4.push(i);
                 }
                 break;
             case 'Backend Developer':
-                for(var i of this.state.backendList) {
+                for(i of this.state.backendList) {
                     this.state.DDL4.push(i);
                 }
                 break;
             case 'Database Developer':
-                for(var i of this.state.databaseList) {
+                for(i of this.state.databaseList) {
                     this.state.DDL4.push(i);
                 }
                 break;
@@ -287,12 +287,45 @@ class PostRequirementComponent extends Component {
     
         return isValid;
       }
-      closeReq = (e) => {
+      viewProfile= (e) => {
         e.preventDefault();
-        this.props.history.push('/CloseRequirement');
-      }
-      
-    home = (e) => {
+        this.props.history.push('/ProfilePOC');
+      };
+    
+      editProfile = (e) => {
+        e.preventDefault();
+        this.props.history.push('/EditProfilePOC');
+    }
+      uploadProfile = (e) => {
+      e.preventDefault();
+      this.props.history.push('/UploadProfilePOC');
+    }
+    
+    postNewReq = (e) => {
+      e.preventDefault();
+      this.props.history.push('/PostRequirementComponent');
+    }
+    
+    closeReq = (e) => {
+      e.preventDefault();
+      this.props.history.push('/CloseRequirement');
+    }
+    
+    ViewAllReq = (e) => {
+      e.preventDefault();
+      this.props.history.push('/ViewAllRequirements');
+    }
+    
+    ViewReqPOC = (e) => {
+      e.preventDefault();
+      this.props.history.push('/ViewRequirements');
+    }
+    ViewReqEpPOC = (e) => {
+      e.preventDefault();
+      this.props.history.push('/ViewRequirementsEligibleProfiles');
+    }
+    
+      home = (e) => {
         e.preventDefault();
         this.props.history.push('/POCHomeComponent');
     }
@@ -315,9 +348,9 @@ class PostRequirementComponent extends Component {
             </Navbar.Brand>
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link href="/POCHomeComponent">Home</Nav.Link>
+                <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <NavDropdown
-                    title="Requirement"
+                    title="Services"
                     id="basic-nav-dropdown"
                   >
                     <NavDropdown.Item onClick={this.postNewReq}>
@@ -326,23 +359,29 @@ class PostRequirementComponent extends Component {
                     <NavDropdown.Item onClick={this.closeReq}>
                       Close Requirement
                     </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.ViewAllReq}>
+                      View All Requirements
+                    </NavDropdown.Item>
+                    <Dropdown.Divider />
+                    <NavDropdown.Item onClick={this.ViewReqPOC}>
+                      View Your Requirements
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.ViewReqEpPOC}>
+                      View Your Eligible Profiles
+                    </NavDropdown.Item>
                   </NavDropdown>
               </Nav>
               <Nav>
               <NavDropdown
-                    title={global.firstName + " " + global.lastName}
+                    title={window.firstName + " " + window.lastName}
                     id="basic-nav-dropdown"
                     style={{ marginLeft: "20" }}
                   >
-                    <NavDropdown.Item href="/ProfileComponent">
+                    <NavDropdown.Item onClick={this.viewProfile}>
                       View Profile
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="/EditProfileComponent">
+                    <NavDropdown.Item onClick={this.editProfile}>
                       Edit Profile
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="/UploadFile">
-                      Upload Resume
                     </NavDropdown.Item>
                   </NavDropdown>
                 <Nav className="me-auto">
@@ -358,9 +397,9 @@ class PostRequirementComponent extends Component {
                 <br></br>
                    <div className = "container p-3">
                         <div className = "row">
-                            <div className = "card col-md-6 offset-md-3 offset-md-3">
+                            <div className = "card col-md-6 offset-md-3 offset-md-3" style={{marginTop: "5rem" }}>
                                 <div className="p-5">
-                                <h3 className="text-center">Post a Requirement</h3><br></br>
+                                <h1 className="text-center">Post a Requirement</h1><br></br>
                                 <div className = "card-body">
                                     <div className = "form-group">
                                             <label for="validFirstName" class="form-label"> Project Name: </label>

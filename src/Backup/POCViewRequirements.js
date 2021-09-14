@@ -1,12 +1,23 @@
 import React, {Component } from 'react';
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown ,Dropdown,DropdownButton} from 'react-bootstrap';
 import * as ReactBootstrap from 'react-bootstrap';
-import './GlobalVariable';
+import '../components/GlobalVariable';
 import EmployeeService from '../services/EmployeeService';
 import { Header,Table,Menu,Icon, } from "semantic-ui-react";
-import FooterComponent from './FooterComponent';
+import FooterComponent from '../components/FooterComponent';
 
-class Status extends Component {
+const style = {
+    h3: {
+      marginTop: "2em",
+      padding: "2em 0em",
+      fontSize: "2em",
+    },
+    h1: {
+      fontSize: "1.5em",
+    },
+  };
+
+class   POCViewRequirements extends Component {
     constructor() {
         super();
         this.state = { 
@@ -27,55 +38,116 @@ class Status extends Component {
     }
     
     logout = (e) => {
+        e.preventDefault();
+          EmployeeService.logout().then((res) => {
+            let s = res.data;
+            if (s.booleanMsg) {
+              window.userId = "";
+              window.userType = "";
+              window.firstName = "";
+              window.lastName = "";
+              window.contact = "";
+              window.sessionId = "";
+              localStorage.clear();
+              this.props.history.push('/Home');
+            } 
+            
+          });
+      };
+      viewProfile= (e) => {
+        e.preventDefault();
+        this.props.history.push('/ProfilePOC');
+      };
+    
+      editProfile = (e) => {
+        e.preventDefault();
+        this.props.history.push('/EditProfilePOC');
+    }
+      uploadProfile = (e) => {
       e.preventDefault();
-        EmployeeService.logout().then((res) => {
-          let s = res.data;
-          if (s.booleanMsg) {
-            window.userId = "";
-            window.userType = "";
-            window.firstName = "";
-            window.lastName = "";
-            window.contact = "";
-            window.sessionId = "";
-            localStorage.clear();
-            this.props.history.push('/Home');
-          } 
-          
-        });
-    };
-  
-    home = (e) => {
+      this.props.history.push('/UploadProfilePOC');
+    }
+    
+    postNewReq = (e) => {
+      e.preventDefault();
+      this.props.history.push('/PostRequirementComponent');
+    }
+    
+    closeReq = (e) => {
+      e.preventDefault();
+      this.props.history.push('/CloseRequirement');
+    }
+    
+    ViewAllReq = (e) => {
+      e.preventDefault();
+      this.props.history.push('/ViewAllRequirements');
+    }
+    
+    ViewReqPOC = (e) => {
+      e.preventDefault();
+      this.props.history.push('/ViewRequirements');
+    }
+    ViewReqEpPOC = (e) => {
+      e.preventDefault();
+      this.props.history.push('/ViewRequirementsEligibleProfiles');
+    }
+    
+      home = (e) => {
         e.preventDefault();
         this.props.history.push('/POCHomeComponent');
     }
 
-    viewProfile= (e) => {
-      e.preventDefault();
-      this.props.history.push('/ProfilePOC');
-    };
-  
-    editProfile = (e) => {
-      e.preventDefault();
-      this.props.history.push('/EditProfilePOC');
-  }
-    uploadProfile = (e) => {
-    e.preventDefault();
-    this.props.history.push('/UploadProfilePOC');
-  }
-  
-  postNewReq = (e) => {
-    e.preventDefault();
-    this.props.history.push('/PostRequirementComponent');
-  }
-  closeReq = (e) => {
-    e.preventDefault();
-    this.props.history.push('/CloseRequirement');
-  }
-  
-  Status = (e) => {
-    e.preventDefault();
-    this.props.history.push('/Status');
-  }
+    all = (e) => {
+        e.preventDefault();
+        this.state.requirements=[];
+        let employee = {sessionId:global.sessionId} ;
+        console.log(employee);
+        EmployeeService.pocRequirement(employee).then(res => {
+            let s=res.data;
+            console.log(s);
+            console.log(s.requirements);
+            this.setState({requirements:s.requirements});
+        })
+    }
+
+    active = (e) => {
+        e.preventDefault();
+        this.state.requirements=[];
+        let employee = {sessionId:global.sessionId} ;
+        console.log(employee);
+        EmployeeService.pocActiveRequirement(employee).then(res => {
+            let s=res.data;
+            console.log(s);
+            console.log(s.requirements);
+            this.setState({requirements:s.requirements});
+        })
+    }
+
+    closed = (e) => {
+        e.preventDefault();
+        this.state.requirements=[];
+        let employee = {sessionId:global.sessionId} ;
+        console.log(employee);
+        EmployeeService.pocClosedRequirement(employee).then(res => {
+            let s=res.data;
+            console.log(s);
+            console.log(s.requirements);
+            this.setState({requirements:s.requirements});
+        })
+    }
+
+    progress = (e) => {
+        e.preventDefault();
+        this.state.requirements=[];
+        let employee = {sessionId:global.sessionId} ;
+        console.log(employee);
+        EmployeeService.pocProgressRequirement(employee).then(res => {
+            let s=res.data;
+            console.log(s);
+            console.log(s.requirements);
+            this.setState({requirements:s.requirements});
+        })
+    }
 
     renderRequirement = (req,index) => {
         return(
@@ -112,7 +184,7 @@ class Status extends Component {
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <NavDropdown
-                    title="Requirement"
+                    title="Services"
                     id="basic-nav-dropdown"
                   >
                     <NavDropdown.Item onClick={this.postNewReq}>
@@ -121,11 +193,21 @@ class Status extends Component {
                     <NavDropdown.Item onClick={this.closeReq}>
                       Close Requirement
                     </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.ViewAllReq}>
+                      View All Requirements
+                    </NavDropdown.Item>
+                    <Dropdown.Divider />
+                    <NavDropdown.Item onClick={this.ViewReqPOC}>
+                      View Your Requirements
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.ViewReqEpPOC}>
+                      View Your Eligible Profiles
+                    </NavDropdown.Item>
                   </NavDropdown>
               </Nav>
               <Nav>
               <NavDropdown
-                    title={global.firstName + " " + global.lastName}
+                    title={window.firstName + " " + window.lastName}
                     id="basic-nav-dropdown"
                     style={{ marginLeft: "20" }}
                   >
@@ -154,7 +236,7 @@ class Status extends Component {
         <div className="container" style={{marginTop:"2em"}}>
         <b><Header
             as="h1"
-            content="Status"
+            content="View All Requirements"
             style={{
               fontWeight: "normal",
               textAlign:"center",
@@ -162,6 +244,14 @@ class Status extends Component {
               padding: "2em",
             }}
           /></b>
+          
+            <DropdownButton id="dropdown-item-button" title="Filter Requirements based on status">
+            <Dropdown.Item as="button" onClick={this.all}>All</Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.active}>Active</Dropdown.Item>
+                <Dropdown.Item as="button" onClick={this.closed}>Closed</Dropdown.Item>
+                <Dropdown.Item as="button" onClick={this.progress}>In Progress</Dropdown.Item>
+            </DropdownButton>
+<br></br>
             <ReactBootstrap.Table stripped bordered hover>
                 <Table.Header>
                     <Table.Row>
@@ -186,4 +276,4 @@ class Status extends Component {
     }
 }
  
-export default Status;
+export default POCViewRequirements;

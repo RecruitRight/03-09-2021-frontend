@@ -1,29 +1,14 @@
 import React, { Component } from "react";
-import NavBar from "../dashboard/NavBar";
 import {
   Navbar,
   Container,
   Nav,
-  NavDropdown,
-  Card,
-  Button,
-  CardDeck,
+  NavDropdown
 } from "react-bootstrap";
 import "./GlobalVariable";
-import { Grid, Segment, List, Header, Image } from "semantic-ui-react";
+import { Grid, Segment, List, Header} from "semantic-ui-react";
 import "../App.css";
 import EmployeeService from "../services/EmployeeService";
-
-const style = {
-  h3: {
-    marginTop: "2em",
-    padding: "2em 0em",
-    fontSize: "2em",
-  },
-  h1: {
-    fontSize: "1.5em",
-  },
-};
 
 class RMGHomeComponent extends Component {
   constructor(props) {
@@ -66,9 +51,19 @@ class RMGHomeComponent extends Component {
   this.props.history.push('/UploadProfileRMG');
 }
 
-viewReq = (e) => {
+uploadedProfiles = (e) => {
   e.preventDefault();
-  this.props.history.push('/ViewRequirements');
+  this.props.history.push('/RMGUploadedProfiles');
+}
+
+viewAllUP = (e) => {
+  e.preventDefault();
+  this.props.history.push('/ViewAllUserProfiles');
+}
+
+RMGViewAllReq = (e) => {
+  e.preventDefault();
+  this.props.history.push('/RMGViewAllRequirements');
 }
 
   home = (e) => {
@@ -86,6 +81,7 @@ viewReq = (e) => {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
@@ -95,8 +91,25 @@ viewReq = (e) => {
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
-                <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.viewReq}>View Requirements</Nav.Link>
+                <NavDropdown
+                    title="Services"
+                    id="basic-nav-dropdown"
+                  >
+                    <NavDropdown.Item onClick={this.uploadProfile}>
+                      Upload Candidate Profiles
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.uploadedProfiles}>
+                    Your Uploaded Profiles
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={this.viewAllUP}>
+                    View All User Profiles
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.RMGViewAllReq}>
+                    View All Requirements
+                    </NavDropdown.Item>
+
+                  </NavDropdown>
               </Nav>
               <Nav>
               <NavDropdown
@@ -110,10 +123,6 @@ viewReq = (e) => {
                     <NavDropdown.Item onClick={this.editProfile}>
                       Edit Profile
                     </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={this.uploadProfile}>
-                      Upload Resume
-                    </NavDropdown.Item>
                   </NavDropdown>
                 <Nav className="me-auto">
                   <Nav.Link>|</Nav.Link>
@@ -126,7 +135,7 @@ viewReq = (e) => {
           </Container>
         </Navbar>
         <div className="masthead segment bg1">
-          <img src="/images/welcome.png" width="1600" height="650" />
+          <img alt="" src="/images/welcome.png" width="1600" height="650" />
         </div>
         <div
         style={{
@@ -141,13 +150,13 @@ viewReq = (e) => {
                   <div className=" overflow">
                     <img
                       src="/images/resume.png"
-                      alt="Image 1"
+                      alt=""
                       className="card-img-top" width="50" height="250"
                     />
                   </div>
                   <div className="card-body text-dark">
-                    <p classsName="card-text text-secondary">Upload your best CV or Resume.</p>
-                    <a onClick={this.uploadProfile} className="btn btn-outline-primary">
+                    <p classsName="card-text text-secondary">Upload Candidates best CV or Resume.</p>
+                    <a onClick={this.uploadProfile} className="btn btn-outline-primary" href="#">
                       Upload Now
                     </a>
                   </div>
@@ -158,13 +167,13 @@ viewReq = (e) => {
                   <div className=" overflow">
                     <img
                       src="/images/profile.png"
-                      alt="Image 1"
+                      alt=""
                       className="card-img-top" width="50" height="250"
                     />
                   </div>
                   <div className="card-body text-dark">
                     <p classsName="card-text text-secondary">Click here to view your profile and to edit it</p>
-                    <a onClick={this.viewProfile} className="btn btn-outline-primary">
+                    <a onClick={this.viewProfile} className="btn btn-outline-primary" href="#">
                       Profile
                     </a>
                   </div>
@@ -175,13 +184,13 @@ viewReq = (e) => {
                   <div className= "overflow">
                     <img
                       src="/images/Status.png"
-                      alt="Image 1"
+                      alt=""
                       className="card-img-top" width="50" height="250"
                     />
                   </div>
                   <div className="card-body text-dark">
-                    <p classsName="card-text text-secondary">Check out the requirements</p>
-                    <a onClick={this.viewReq} className="btn btn-outline-primary">
+                    <p classsName="card-text text-secondary">Check out all the requirements</p>
+                    <a onClick={this.RMGViewAllReq} className="btn btn-outline-primary" href="#">
                       View
                     </a>
                   </div>
@@ -193,7 +202,7 @@ viewReq = (e) => {
         <Segment
         inverted
         vertical
-        style={{ margin: "5em 0em 0em", padding: "5em 20em" }}
+        style={{ margin: "5em 0em 0em", padding: "4em 20em" }}
       >
         <Container className="text-center">
           <Grid divided inverted stackable>

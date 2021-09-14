@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import EmployeeService from "../services/EmployeeService";
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Container, Nav} from "react-bootstrap";
 import {Button,Form,Grid,Header,Image,Segment} from "semantic-ui-react";
 import FooterComponent from './FooterComponent';
 
@@ -89,6 +89,7 @@ home = (e) => {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}

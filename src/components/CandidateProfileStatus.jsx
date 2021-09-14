@@ -3,38 +3,28 @@ import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import * as ReactBootstrap from 'react-bootstrap';
 import './GlobalVariable';
 import EmployeeService from '../services/EmployeeService';
-import { Header,Table,Menu,Icon, } from "semantic-ui-react";
+import { Header,Table} from "semantic-ui-react";
 import FooterComponent from './FooterComponent';
 
 class CandidateProfileStatus extends Component {
     constructor() {
         super();
         this.state = { 
-            requirements:[],
+          userProfileStatusList:[],
          }
-         this.renderRequirement = this.renderRequirement.bind(this);
+         this.renderUserProfileStatusList = this.renderUserProfileStatusList.bind(this);
     }
 
     componentDidMount(){
         let employee = {sessionId:global.sessionId} ;
-        console.log(employee);
         EmployeeService.candidateProfileStatus(employee).then(res => {
             let s=res.data;
             console.log(s);
-            console.log(s.requirements);
-            this.setState({requirements:s.requirements});
+            console.log(s.userProfileStatusList);
+            this.setState({userProfileStatusList:s.userProfileStatusList});
         })
     }
     
-    logout = (e) => {
-        e.preventDefault();
-        global.userId="";
-            global.userType="";
-            global.firstName="";
-            global.lastName="";
-            global.contact="";
-        this.props.history.push('/home');
-    }
   
     viewProfile= (e) => {
         e.preventDefault();
@@ -78,15 +68,11 @@ class CandidateProfileStatus extends Component {
         this.props.history.push('/LandingPage');
     }
 
-    renderRequirement = (req,index) => {
+    renderUserProfileStatusList = (req,index) => {
         return(
             <Table.Row key={index}>
                 <Table.Cell>{req.reqId}</Table.Cell>
-                <Table.Cell>{req.isu}</Table.Cell>
-                <Table.Cell>{req.subIsu}</Table.Cell>
                 <Table.Cell>{req.projectName}</Table.Cell>
-                <Table.Cell>{req.jobRole}</Table.Cell>
-                <Table.Cell>{req.jobRoleType}</Table.Cell>
                 <Table.Cell>{req.status}</Table.Cell>
             </Table.Row>
         )
@@ -101,6 +87,7 @@ class CandidateProfileStatus extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
@@ -156,16 +143,12 @@ class CandidateProfileStatus extends Component {
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>Requirement Id</Table.HeaderCell>
-                        <Table.HeaderCell>ISU</Table.HeaderCell>
-                        <Table.HeaderCell>Sub-ISU</Table.HeaderCell>
                         <Table.HeaderCell>Project Name</Table.HeaderCell>
-                        <Table.HeaderCell>Job Role</Table.HeaderCell>
-                        <Table.HeaderCell>Job Role Type</Table.HeaderCell>
                         <Table.HeaderCell>Status</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {this.state.requirements.map(this.renderRequirement)}   
+                    {this.state.userProfileStatusList.map(this.renderUserProfileStatusList)}   
                 </Table.Body>
             </ReactBootstrap.Table>
             </div>

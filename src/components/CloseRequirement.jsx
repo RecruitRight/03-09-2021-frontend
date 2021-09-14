@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import EmployeeService from '../services/EmployeeService';
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown ,Dropdown} from 'react-bootstrap';
 import FooterComponent from './FooterComponent';
 import './GlobalVariable';
 
@@ -85,40 +85,49 @@ class CloseRequirement extends Component {
       }
     }
 
-    viewProfile= (e) => {
-      e.preventDefault();
-      this.props.history.push('/ProfilePOC');
-    };
-  
-    editProfile = (e) => {
-      e.preventDefault();
-      this.props.history.push('/EditProfilePOC');
-  }
-    uploadProfile = (e) => {
+    
+  viewProfile= (e) => {
     e.preventDefault();
-    this.props.history.push('/UploadFilePOC');
-  }
+    this.props.history.push('/ProfilePOC');
+  };
 
-  postNewReq = (e) => {
+  editProfile = (e) => {
     e.preventDefault();
-    this.props.history.push('/PostRequirementComponent');
-  }
+    this.props.history.push('/EditProfilePOC');
+}
+  uploadProfile = (e) => {
+  e.preventDefault();
+  this.props.history.push('/UploadProfilePOC');
+}
 
-  closeReq = (e) => {
-    e.preventDefault();
-    this.props.history.push('/CloseRequirement');
-  }
-  
-  Status = (e) => {
-    e.preventDefault();
-    this.props.history.push('/Status');
-  }
-  
-    home = (e) => {
-        e.preventDefault();
-        this.props.history.push('/POCHomeComponent');
-    }
+postNewReq = (e) => {
+  e.preventDefault();
+  this.props.history.push('/PostRequirementComponent');
+}
 
+closeReq = (e) => {
+  e.preventDefault();
+  this.props.history.push('/CloseRequirement');
+}
+
+ViewAllReq = (e) => {
+  e.preventDefault();
+  this.props.history.push('/ViewAllRequirements');
+}
+
+ViewReqPOC = (e) => {
+  e.preventDefault();
+  this.props.history.push('/ViewRequirements');
+}
+ViewReqEpPOC = (e) => {
+  e.preventDefault();
+  this.props.history.push('/ViewRequirementsEligibleProfiles');
+}
+
+  home = (e) => {
+    e.preventDefault();
+    this.props.history.push('/POCHomeComponent');
+}
     logout = (e) => {
         e.preventDefault();
         window.userId="";
@@ -138,6 +147,7 @@ class CloseRequirement extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
@@ -148,7 +158,7 @@ class CloseRequirement extends Component {
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <NavDropdown
-                    title="Requirement"
+                    title="Services"
                     id="basic-nav-dropdown"
                   >
                     <NavDropdown.Item onClick={this.postNewReq}>
@@ -157,8 +167,18 @@ class CloseRequirement extends Component {
                     <NavDropdown.Item onClick={this.closeReq}>
                       Close Requirement
                     </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.ViewAllReq}>
+                      View All Requirements
+                    </NavDropdown.Item>
+                    <Dropdown.Divider />
+                    <NavDropdown.Item onClick={this.ViewReqPOC}>
+                      View Your Requirements
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.ViewReqEpPOC}>
+                      View Your Eligible Profiles
+                    </NavDropdown.Item>
                   </NavDropdown>
-                  </Nav>
+              </Nav>
               <Nav>
               <NavDropdown
                     title={window.firstName + " " + window.lastName}
@@ -170,10 +190,6 @@ class CloseRequirement extends Component {
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.editProfile}>
                       Edit Profile
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={this.uploadProfile}>
-                      Upload Resume
                     </NavDropdown.Item>
                   </NavDropdown>
                 <Nav className="me-auto">

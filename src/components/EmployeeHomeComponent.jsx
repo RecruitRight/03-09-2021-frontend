@@ -1,29 +1,14 @@
 import React, { Component } from "react";
-import NavBar from "../dashboard/NavBar";
 import {
   Navbar,
   Container,
   Nav,
-  NavDropdown,
-  Card,
-  Button,
-  CardDeck,
+  NavDropdown
 } from "react-bootstrap";
 import "./GlobalVariable";
-import { Grid, Segment, List, Header, Image } from "semantic-ui-react";
+import { Grid, Segment, List, Header} from "semantic-ui-react";
 import "../App.css";
 import EmployeeService from "../services/EmployeeService";
-
-const style = {
-  h3: {
-    marginTop: "2em",
-    padding: "2em 0em",
-    fontSize: "2em",
-  },
-  h1: {
-    fontSize: "1.5em",
-  },
-};
 
 class EmployeeHomeComponent extends Component {
   constructor(props) {
@@ -69,11 +54,6 @@ viewReqPanelist = (e) => {
   this.props.history.push('/ViewRequirementsPanelist');
 }
 
-fetchAllReq=(e)=>{
-  e.preventDefault();
-  this.props.history.push('/ViewAllRequirements');
-}
-
   home = (e) => {
       e.preventDefault();
       this.props.history.push('/EmployeeHomeComponent');
@@ -106,6 +86,7 @@ fetchAllReq=(e)=>{
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
@@ -115,6 +96,8 @@ fetchAllReq=(e)=>{
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.viewReqPanelist}>All Requirements</Nav.Link>
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.feedback}>Feedback</Nav.Link>
               </Nav>
@@ -130,10 +113,6 @@ fetchAllReq=(e)=>{
                     <NavDropdown.Item onClick={this.editProfile}>
                       Edit Profile
                     </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={this.uploadProfile}>
-                      Upload Resume
-                    </NavDropdown.Item>
                   </NavDropdown>
                 <Nav className="me-auto">
                   <Nav.Link>|</Nav.Link>
@@ -146,7 +125,7 @@ fetchAllReq=(e)=>{
           </Container>
         </Navbar>
         <div className="masthead segment bg1">
-          <img src="/images/welcome.png" width="1600" height="650" />
+          <img alt="" src="/images/welcome.png" width="1600" height="650" />
         </div>
         <div
         style={{
@@ -166,9 +145,9 @@ fetchAllReq=(e)=>{
                     />
                   </div>
                   <div className="card-body text-dark">
-                    <p classsName="card-text text-secondary">Check all the requirements posted by you.</p>
-                    <a onClick={this.fetchAllReq} className="btn btn-outline-primary">
-                      Take a look
+                    <p classsName="card-text text-secondary">Help us with your words.</p>
+                    <a onClick={this.feedback} className="btn btn-outline-primary">
+                      Feedback
                     </a>
                   </div>
                 </div>

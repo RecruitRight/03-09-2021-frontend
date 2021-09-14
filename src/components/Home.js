@@ -1,29 +1,15 @@
 import React, { Component } from 'react';
-import { Form ,Nav,NavDropdown,Navbar} from "react-bootstrap";
+import { Nav,Navbar} from "react-bootstrap";
 import './GlobalVariable';
 import {
   Container,
   Button,
-  Divider,
   Grid,
   Icon,
   Header,
-  Image,
   List,
   Segment,
 } from "semantic-ui-react";
-import FooterComponent from './FooterComponent';
-
-const  style = {
-  h3: {
-    marginTop: "2em",
-    padding: "2em 0em",
-    fontSize: "2em",
-  },
-  h1: {
-    fontSize: "1.5em",
-  },
-};
 
 class Home extends Component {
   constructor(props) {
@@ -54,6 +40,7 @@ login = (e) => {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
@@ -71,8 +58,12 @@ login = (e) => {
               <Nav>
                 <Nav className="me-auto">
                   <Nav.Link>|</Nav.Link>
+                  <Nav.Link onClick={this.login}>
+                    Log In
+                  </Nav.Link>
+                  <Nav.Link>|</Nav.Link>
                   <Nav.Link onClick={this.signUp}>
-                    Create an Account?
+                    Sign Up
                   </Nav.Link>
                 </Nav>
               </Nav>
@@ -115,13 +106,13 @@ login = (e) => {
             }}
           /><br></br>
           <div className="text-center">
-          <Button as="a" size="large" onClick={this.login}>
+          <Button as="a" size="large" href="#Services">
             Get Started
           </Button>
           </div>
         </Container>
       </Segment>
-      <div style={{backgroundColor:"#f8f9fa"}}>
+      <div style={{backgroundColor:"#f8f9fa"}} id="Services">
       <br></br><br></br><br></br>
           <Header as="h1" style={{ fontSize: "2em" ,textAlign:"center"}}>
                     Our Services
@@ -152,6 +143,7 @@ login = (e) => {
               <Grid.Row>
                 <Grid.Column floated="right" width={6}>
                   <img
+                    alt=""
                     bordered
                     rounded
                     src="/images/aboutus.png"
@@ -209,7 +201,7 @@ login = (e) => {
       <Segment
         inverted
         vertical 
-        style={{ margin: "0em 0em 0em", padding: "8em 0em" }}
+        style={{ margin: "0em 0em 0em", padding: "4em 0em" }}
       >
         <Container textAlign="center">
           <Grid divided inverted stackable>

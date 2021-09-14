@@ -1,8 +1,6 @@
-import axios from 'axios';
-import React, { Component,defaultValue} from 'react';
+import React, { Component} from 'react';
 import EmployeeService from '../services/EmployeeService';
-import UploadFile from './UploadFile';
-import { Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown ,Dropdown} from 'react-bootstrap';
 import FooterComponent from './FooterComponent';
 import './GlobalVariable';
 
@@ -44,8 +42,8 @@ class EditProfilePOC extends Component {
         });}
   }
 
-  changeFirstNameHandler= (value) => {
-    this.setState({firstName: value});
+  changeFirstNameHandler= (event) => {
+    this.setState({firstName: event.target.value});
   }
 
     changeLastNameHandler= (event) => {
@@ -57,33 +55,51 @@ class EditProfilePOC extends Component {
   }
 
     cancel=()=>{
-      this.props.history.push('/ProfilePOC');
+      this.props.history.push('/ProfileRMG');
     }
 
-    viewProfile = () => {
-      this.props.history.push("/ProfilePOC");
-      
-    }
+  viewProfile= (e) => {
+    e.preventDefault();
+    this.props.history.push('/ProfilePOC');
+  };
 
-    closeReq = (e) => {
-      e.preventDefault();
-      this.props.history.push('/CloseRequirement');
-    }
+  editProfile = (e) => {
+    e.preventDefault();
+    this.props.history.push('/EditProfilePOC');
+}
+  uploadProfile = (e) => {
+  e.preventDefault();
+  this.props.history.push('/UploadProfilePOC');
+}
 
-	  postNewReq = (e) => {
-		e.preventDefault();
-		this.props.history.push('/PostRequirementComponent');
-	  }
-  
-    editProfile = () => {
-      this.props.history.push("/EditProfilePOC");
-      
-    };
-  
-    uploadProfile = () => {
-      this.props.history.push("/UploadProfilePOC");
-      
-    };
+postNewReq = (e) => {
+  e.preventDefault();
+  this.props.history.push('/PostRequirementComponent');
+}
+
+closeReq = (e) => {
+  e.preventDefault();
+  this.props.history.push('/CloseRequirement');
+}
+
+ViewAllReq = (e) => {
+  e.preventDefault();
+  this.props.history.push('/ViewAllRequirements');
+}
+
+ViewReqPOC = (e) => {
+  e.preventDefault();
+  this.props.history.push('/ViewRequirements');
+}
+ViewReqEpPOC = (e) => {
+  e.preventDefault();
+  this.props.history.push('/ViewRequirementsEligibleProfiles');
+}
+
+  home = (e) => {
+    e.preventDefault();
+    this.props.history.push('/POCHomeComponent');
+}
 
     logout = (e) => {
       e.preventDefault();
@@ -102,10 +118,6 @@ class EditProfilePOC extends Component {
           
         });
     };
-
-    home=()=>{
-      this.props.history.push("/POCHomeComponent");
-    };
   
     validate() {
       let input = {
@@ -119,7 +131,7 @@ class EditProfilePOC extends Component {
         if (!pattern.test(input["contact"])) {
           isValid = false;
           errors["contact"] = "Please enter only number.";
-        } else if (input["contact"].length != 10) {
+        } else if (input["contact"].length !== 10) {
           isValid = false;
           errors["contact"] = "Please enter valid phone number.";
         }
@@ -140,17 +152,18 @@ class EditProfilePOC extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
               />
               Recruit Right
             </Navbar.Brand>
-            <Nav className="me-auto">
+              <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <NavDropdown
-                    title="Requirement"
+                    title="Services"
                     id="basic-nav-dropdown"
                   >
                     <NavDropdown.Item onClick={this.postNewReq}>
@@ -159,8 +172,18 @@ class EditProfilePOC extends Component {
                     <NavDropdown.Item onClick={this.closeReq}>
                       Close Requirement
                     </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.ViewAllReq}>
+                      View All Requirements
+                    </NavDropdown.Item>
+                    <Dropdown.Divider />
+                    <NavDropdown.Item onClick={this.ViewReqPOC}>
+                      View Your Requirements
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.ViewReqEpPOC}>
+                      View Your Eligible Profiles
+                    </NavDropdown.Item>
                   </NavDropdown>
-                  </Nav>
+              </Nav>
               <Nav>
               <NavDropdown
                     title={window.firstName + " " + window.lastName}
@@ -172,10 +195,6 @@ class EditProfilePOC extends Component {
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.editProfile}>
                       Edit Profile
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={this.uploadProfile}>
-                      Upload Resume
                     </NavDropdown.Item>
                   </NavDropdown>
                 <Nav className="me-auto">

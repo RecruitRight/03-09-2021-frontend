@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import './GlobalVariable';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import { Grid, Segment, List, Header, Image } from "semantic-ui-react";
 import FooterComponent from "./FooterComponent";
 import EmployeeService from "../services/EmployeeService";
 
@@ -55,10 +54,6 @@ logout = (e) => {
     });
 };
 
-  // ProfileComponent = (props) => {
-  //   <p>{this.props.sess}</p>;
-  // };
-  
   render() {
     return (<div>
       <Navbar bg="dark" variant="dark" fixed="top">
@@ -67,6 +62,7 @@ logout = (e) => {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt = ""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}

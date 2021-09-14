@@ -1,7 +1,5 @@
-import axios from 'axios';
-import React, { Component,defaultValue} from 'react';
+import React, { Component} from 'react';
 import EmployeeService from '../services/EmployeeService';
-import UploadFile from './UploadFile';
 import { Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
 import FooterComponent from './FooterComponent';
 import './GlobalVariable';
@@ -34,12 +32,12 @@ class EditProfileEmployee extends Component {
         EmployeeService.editDetails(employee).then(res =>{
             let s=res.data;
             if(s.booleanMsg){
-            this.props.history.push('/ProfileComponent');
+            this.props.history.push('/ProfileEmployee');
             alert("Updated details successfully");
             }
             else{
               alert("Error: Update details fail");
-              this.props.history.push('/EditProfileComponent');
+              this.props.history.push('/EditProfileEmployee');
             }
         });}
   }
@@ -78,24 +76,35 @@ class EditProfileEmployee extends Component {
       this.props.history.push('/ProfileEmployee');
     }
 
-    viewProfile = () => {
-      this.props.history.push("/ProfileEmployee");
-      
+    viewProfile= (e) => {
+      e.preventDefault();
+      this.props.history.push('/ProfileEmployee');
     };
   
-    editProfile = () => {
-      this.props.history.push("/EditProfileEmployee");
-      
-    };
+    editProfile = (e) => {
+      e.preventDefault();
+      this.props.history.push('/EditProfileEmployee');
+  }
   
-    uploadProfile = () => {
-      this.props.history.push("/UploadFileEmployee");
-      
-    };
-
-    home=()=>{
-      this.props.history.push("/EmployeeHomeComponent");
-    };
+    uploadProfile = (e) => {
+    e.preventDefault();
+    this.props.history.push('/UploadProfileEmployee');
+  }
+  
+  feedback=(e) =>{
+    e.preventDefault();
+    this.props.history.push('/FeedbackComponent');
+  }
+  
+  viewReqPanelist = (e) => {
+    e.preventDefault();
+    this.props.history.push('/ViewRequirementsPanelist');
+  }
+  
+    home = (e) => {
+        e.preventDefault();
+        this.props.history.push('/EmployeeHomeComponent');
+    }
   
     validate() {
       let input = {
@@ -109,7 +118,7 @@ class EditProfileEmployee extends Component {
         if (!pattern.test(input["contact"])) {
           isValid = false;
           errors["contact"] = "Please enter only number.";
-        } else if (input["contact"].length != 10) {
+        } else if (input["contact"].length !== 10) {
           isValid = false;
           errors["contact"] = "Please enter valid phone number.";
         }
@@ -130,6 +139,7 @@ class EditProfileEmployee extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
@@ -139,6 +149,10 @@ class EditProfileEmployee extends Component {
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.viewReqPanelist}>All Requirements</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.feedback}>Feedback</Nav.Link>
               </Nav>
               <Nav>
               <NavDropdown
@@ -151,10 +165,6 @@ class EditProfileEmployee extends Component {
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.editProfile}>
                       Edit Profile
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={this.uploadProfile}>
-                      Upload Resume
                     </NavDropdown.Item>
                   </NavDropdown>
                 <Nav className="me-auto">

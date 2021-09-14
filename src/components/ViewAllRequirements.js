@@ -3,7 +3,7 @@ import { Navbar, Container, Nav, NavDropdown ,Dropdown,DropdownButton} from 'rea
 import * as ReactBootstrap from 'react-bootstrap';
 import './GlobalVariable';
 import EmployeeService from '../services/EmployeeService';
-import { Header,Table,Menu,Icon, } from "semantic-ui-react";
+import { Header,Table} from "semantic-ui-react";
 import FooterComponent from './FooterComponent';
 
 class   ViewAllRequirements extends Component {
@@ -18,7 +18,7 @@ class   ViewAllRequirements extends Component {
     componentDidMount(){
         let employee = {sessionId:global.sessionId} ;
         console.log(employee);
-        EmployeeService.pocRequirement(employee).then(res => {
+        EmployeeService.allRequirement(employee).then(res => {
             let s=res.data;
             console.log(s);
             console.log(s.requirements);
@@ -27,60 +27,123 @@ class   ViewAllRequirements extends Component {
     }
     
     logout = (e) => {
+        e.preventDefault();
+          EmployeeService.logout().then((res) => {
+            let s = res.data;
+            if (s.booleanMsg) {
+              window.userId = "";
+              window.userType = "";
+              window.firstName = "";
+              window.lastName = "";
+              window.contact = "";
+              window.sessionId = "";
+              localStorage.clear();
+              this.props.history.push('/Home');
+            } 
+            
+          });
+      };
+    
+      viewProfile= (e) => {
+        e.preventDefault();
+        this.props.history.push('/ProfilePOC');
+      };
+    
+      editProfile = (e) => {
+        e.preventDefault();
+        this.props.history.push('/EditProfilePOC');
+    }
+      uploadProfile = (e) => {
       e.preventDefault();
-        EmployeeService.logout().then((res) => {
-          let s = res.data;
-          if (s.booleanMsg) {
-            window.userId = "";
-            window.userType = "";
-            window.firstName = "";
-            window.lastName = "";
-            window.contact = "";
-            window.sessionId = "";
-            localStorage.clear();
-            this.props.history.push('/Home');
-          } 
-          
-        });
-    };
-  
-    home = (e) => {
+      this.props.history.push('/UploadProfilePOC');
+    }
+    
+    postNewReq = (e) => {
+      e.preventDefault();
+      this.props.history.push('/PostRequirementComponent');
+    }
+    
+    closeReq = (e) => {
+      e.preventDefault();
+      this.props.history.push('/CloseRequirement');
+    }
+    
+    ViewAllReq = (e) => {
+      e.preventDefault();
+      this.props.history.push('/ViewAllRequirements');
+    }
+    
+    ViewReqPOC = (e) => {
+      e.preventDefault();
+      this.props.history.push('/ViewRequirements');
+    }
+    ViewReqEpPOC = (e) => {
+      e.preventDefault();
+      this.props.history.push('/ViewRequirementsEligibleProfiles');
+    }
+    
+      home = (e) => {
         e.preventDefault();
         this.props.history.push('/POCHomeComponent');
     }
 
-    viewProfile= (e) => {
-      e.preventDefault();
-      this.props.history.push('/ProfilePOC');
-    };
-  
-    editProfile = (e) => {
-      e.preventDefault();
-      this.props.history.push('/EditProfilePOC');
-  }
-    uploadProfile = (e) => {
-    e.preventDefault();
-    this.props.history.push('/UploadProfilePOC');
-  }
-  
-  postNewReq = (e) => {
-    e.preventDefault();
-    this.props.history.push('/PostRequirementComponent');
-  }
-  
-  Status = (e) => {
-    e.preventDefault();
-    this.props.history.push('/Status');
-  }
-  closeReq = (e) => {
-    e.preventDefault();
-    this.props.history.push('/CloseRequirement');
-  }
+    all = (e) => {
+        e.preventDefault();
+        this.state.requirements=[];
+        let employee = {sessionId:global.sessionId} ;
+        console.log(employee);
+        EmployeeService.allRequirement(employee).then(res => {
+            let s=res.data;
+            console.log(s);
+            console.log(s.requirements);
+            this.setState({requirements:s.requirements});
+        })
+    }
+
+    active = (e) => {
+        e.preventDefault();
+        this.state.requirements=[];
+        let employee = {sessionId:global.sessionId} ;
+        console.log(employee);
+        EmployeeService.fetchAllActiveRequirements(employee).then(res => {
+            let s=res.data;
+            console.log(s);
+            console.log(s.requirements);
+            this.setState({requirements:s.requirements});
+        })
+    }
+
+    closed = (e) => {
+        e.preventDefault();
+        this.state.requirements=[];
+        let employee = {sessionId:global.sessionId} ;
+        console.log(employee);
+        EmployeeService.fetchAllClosedRequirements(employee).then(res => {
+            let s=res.data;
+            console.log(s);
+            console.log(s.requirements);
+            this.setState({requirements:s.requirements});
+        })
+    }
+
+    progress = (e) => {
+        e.preventDefault();
+        this.state.requirements=[];
+        let employee = {sessionId:global.sessionId} ;
+        console.log(employee);
+        EmployeeService.fetchAllInProgressRequirements(employee).then(res => {
+            let s=res.data;
+            console.log(s);
+            console.log(s.requirements);
+            this.setState({requirements:s.requirements});
+        })
+    }
 
     renderRequirement = (req,index) => {
         return(
             <Table.Row key={index}>
                 <Table.Cell>{req.reqId}</Table.Cell>
+                <Table.Cell>{req.userId}</Table.Cell>
                 <Table.Cell>{req.isu}</Table.Cell>
                 <Table.Cell>{req.subIsu}</Table.Cell>
                 <Table.Cell>{req.projectName}</Table.Cell>
@@ -102,6 +165,7 @@ class   ViewAllRequirements extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
@@ -112,7 +176,7 @@ class   ViewAllRequirements extends Component {
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <NavDropdown
-                    title="Requirement"
+                    title="Services"
                     id="basic-nav-dropdown"
                   >
                     <NavDropdown.Item onClick={this.postNewReq}>
@@ -121,11 +185,21 @@ class   ViewAllRequirements extends Component {
                     <NavDropdown.Item onClick={this.closeReq}>
                       Close Requirement
                     </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.ViewAllReq}>
+                      View All Requirements
+                    </NavDropdown.Item>
+                    <Dropdown.Divider />
+                    <NavDropdown.Item onClick={this.ViewReqPOC}>
+                      View Your Requirements
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.ViewReqEpPOC}>
+                      View Your Eligible Profiles
+                    </NavDropdown.Item>
                   </NavDropdown>
               </Nav>
               <Nav>
               <NavDropdown
-                    title={global.firstName + " " + global.lastName}
+                    title={window.firstName + " " + window.lastName}
                     id="basic-nav-dropdown"
                     style={{ marginLeft: "20" }}
                   >
@@ -134,10 +208,6 @@ class   ViewAllRequirements extends Component {
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.editProfile}>
                       Edit Profile
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={this.uploadProfile}>
-                      Upload Resume
                     </NavDropdown.Item>
                   </NavDropdown>
                 <Nav className="me-auto">
@@ -163,16 +233,18 @@ class   ViewAllRequirements extends Component {
             }}
           /></b>
           
-            <DropdownButton id="dropdown-item-button" title="View All Requirements">
-            <Dropdown.Item as="button">Active</Dropdown.Item>
-                <Dropdown.Item as="button">Closed</Dropdown.Item>
-                <Dropdown.Item as="button">In Progress</Dropdown.Item>
+            <DropdownButton id="dropdown-item-button" title="Filter">
+            <Dropdown.Item as="button" onClick={this.all}>All</Dropdown.Item>
+            <Dropdown.Item as="button" onClick={this.active}>Active</Dropdown.Item>
+                <Dropdown.Item as="button" onClick={this.closed}>Closed</Dropdown.Item>
+                <Dropdown.Item as="button" onClick={this.progress}>In Progress</Dropdown.Item>
             </DropdownButton>
 <br></br>
             <ReactBootstrap.Table stripped bordered hover>
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>Requirement Id</Table.HeaderCell>
+                        <Table.HeaderCell>Posted By</Table.HeaderCell>
                         <Table.HeaderCell>ISU</Table.HeaderCell>
                         <Table.HeaderCell>Sub-ISU</Table.HeaderCell>
                         <Table.HeaderCell>Project Name</Table.HeaderCell>

@@ -1,9 +1,9 @@
 import React, {Component } from 'react';
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown ,Dropdown} from 'react-bootstrap';
 import * as ReactBootstrap from 'react-bootstrap';
 import './GlobalVariable';
 import EmployeeService from '../services/EmployeeService';
-import { Header,Table,Menu,Icon, } from "semantic-ui-react";
+import { Header,Table} from "semantic-ui-react";
 import FooterComponent from './FooterComponent';
 
 class POCEligibleProfiles extends Component {
@@ -44,11 +44,6 @@ class POCEligibleProfiles extends Component {
         });
     };
   
-    home = (e) => {
-        e.preventDefault();
-        this.props.history.push('/POCHomeComponent');
-    }
-
     viewProfile= (e) => {
       e.preventDefault();
       this.props.history.push('/ProfilePOC');
@@ -67,17 +62,30 @@ class POCEligibleProfiles extends Component {
     e.preventDefault();
     this.props.history.push('/PostRequirementComponent');
   }
-
+  
   closeReq = (e) => {
     e.preventDefault();
     this.props.history.push('/CloseRequirement');
   }
   
-  Status = (e) => {
+  ViewAllReq = (e) => {
     e.preventDefault();
-    this.props.history.push('/Status');
+    this.props.history.push('/ViewAllRequirements');
   }
-
+  
+  ViewReqPOC = (e) => {
+    e.preventDefault();
+    this.props.history.push('/ViewRequirements');
+  }
+  ViewReqEpPOC = (e) => {
+    e.preventDefault();
+    this.props.history.push('/ViewRequirementsEligibleProfiles');
+  }
+  
+    home = (e) => {
+      e.preventDefault();
+      this.props.history.push('/POCHomeComponent');
+  }
     renderRequirement = (req,index) => {
         return(
             <Table.Row key={index}>
@@ -103,6 +111,7 @@ class POCEligibleProfiles extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
@@ -113,7 +122,7 @@ class POCEligibleProfiles extends Component {
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <NavDropdown
-                    title="Requirement"
+                    title="Services"
                     id="basic-nav-dropdown"
                   >
                     <NavDropdown.Item onClick={this.postNewReq}>
@@ -122,11 +131,21 @@ class POCEligibleProfiles extends Component {
                     <NavDropdown.Item onClick={this.closeReq}>
                       Close Requirement
                     </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.ViewAllReq}>
+                      View All Requirements
+                    </NavDropdown.Item>
+                    <Dropdown.Divider />
+                    <NavDropdown.Item onClick={this.ViewReqPOC}>
+                      View Your Requirements
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.ViewReqEpPOC}>
+                      View Your Eligible Profiles
+                    </NavDropdown.Item>
                   </NavDropdown>
-                  </Nav>
+              </Nav>
               <Nav>
               <NavDropdown
-                    title={global.firstName + " " + global.lastName}
+                    title={window.firstName + " " + window.lastName}
                     id="basic-nav-dropdown"
                     style={{ marginLeft: "20" }}
                   >
@@ -135,10 +154,6 @@ class POCEligibleProfiles extends Component {
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.editProfile}>
                       Edit Profile
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={this.uploadProfile}>
-                      Upload Resume
                     </NavDropdown.Item>
                   </NavDropdown>
                 <Nav className="me-auto">

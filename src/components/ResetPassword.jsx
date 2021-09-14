@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import EmployeeService from "../services/EmployeeService";
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import ForgotPassword from './ForgotPassword';
+import { Navbar, Container, Nav} from "react-bootstrap";
 import {Button,Form,Grid,Header,Image,Segment} from "semantic-ui-react";
 import FooterComponent from './FooterComponent';
 
@@ -68,14 +67,14 @@ class ResetPassword extends Component {
         if (!pattern.test(input["verificationCode"])) {
           isValid = false;
           errors["verificationCode"] = "Please enter only number.";
-        } else if (input["verificationCode"].length != 6) {
+        } else if (input["verificationCode"].length !==6) {
           isValid = false;
           errors["verificationCode"] = "Please enter valid verification code.";
         }
       }
   
       if (typeof input["userId"] !== "undefined") {
-        var pattern = new RegExp(
+        pattern = new RegExp(
           /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
         );
         if (!pattern.test(input["userId"])) {
@@ -88,7 +87,7 @@ class ResetPassword extends Component {
         typeof input["password"] !== "undefined" &&
         typeof input["confirmPassword"] !== "undefined"
       ) {
-        if (input["password"] != input["confirmPassword"]) {
+        if (input["password"] !== input["confirmPassword"]) {
           isValid = false;
           errors["password"] = "Passwords don't match.";
         }
@@ -132,6 +131,7 @@ class ResetPassword extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}

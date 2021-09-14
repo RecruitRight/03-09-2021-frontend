@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-const EMPLOYEE_API_BASE_URL = "";
-
 class EmployeeService {
 
     signUp(employee){
@@ -35,16 +33,7 @@ class EmployeeService {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
         };
-        return axios.post("http://localhost:8080/candidate/profileStatus ", employee,config);
-    }
-
-    pocRequirement(employee){
-        const config = {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token')
-            }
-        };
-        return axios.post("http://localhost:8080/poc/requirementList", employee,config);
+        return axios.get("http://localhost:8080/candidate/profileStatus ", config);
     }
 
     postRequirement(details){
@@ -74,13 +63,22 @@ class EmployeeService {
         return axios.post("http://localhost:8080/user/editDetails", employee,config);
     }
 
-    pocEligibleProfiles(employee){
+    pocReqEligibleProfiles(employee){
         const config = {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
         };
-        return axios.post("http://localhost:8080/poc/requirement/eligibleProfiles", employee,config);
+        return axios.get("http://localhost:8080/poc/requirement/eligibleProfiles",config);
+    }
+
+    allRequirement(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.get("http://localhost:8080/requirementList ", config);
     }
 
     fetchAllActiveRequirements(employee){
@@ -89,7 +87,25 @@ class EmployeeService {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
         };
-        return axios.get("http://localhost:8080/fetchAllActiveRequirements", employee,config);
+        return axios.get("http://localhost:8080/getActiveRequirements", config);
+    }
+
+    fetchAllClosedRequirements(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.get("http://localhost:8080/getClosedRequirements", config);
+    }
+
+    fetchAllInProgressRequirements(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.get("http://localhost:8080/getInProgressRequirements", config);
     }
 
     Upload(formData){
@@ -107,18 +123,107 @@ class EmployeeService {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
         };
-        return axios.post("http://localhost:8080/feedBack", formData,config);
+        return axios.post("http://localhost:8080/submitFeedback", formData,config);
     }
 
-    uploadResume(details){
+    pocAllRequirement(employee){
         const config = {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
         };
-        return axios.post("http://localhost:8080/postRequirement", details,config);
+        return axios.get("http://localhost:8080/poc/requirementList", config);
     }
 
+    pocActiveRequirement(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.get("http://localhost:8080/poc/getActiveRequirements", config);
+    }
+
+    pocClosedRequirement(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.get("http://localhost:8080/poc/getClosedRequirements", config);
+    }
+
+    pocProgressRequirement(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.get("http://localhost:8080/poc/getInProgressRequirements", config);
+    }
+
+    rmgUploadedProfiles(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.get("http://localhost:8080/rmg/uploadedProfiles", config);
+    }
+
+    ActiveUserProfiles(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.get("http://localhost:8080//rmg/getActiveUserProfiles", config);
+    }
+
+    SelectedUserProfiles(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.get("http://localhost:8080/rmg/getSelectedUserProfiles", config);
+    }
+
+    InProgressUserProfiles(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.get("http://localhost:8080/rmg/getInProgressUserProfiles", config);
+    }
+
+    AllActiveUserProfiles(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.get("http://localhost:8080/getActiveUserProfiles", config);
+    }
+
+    AllSelectedUserProfiles(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.get("http://localhost:8080/getSelectedUserProfiles", config);
+    }
+
+    AllInProgressUserProfiles(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.get("http://localhost:8080/getInProgressUserProfiles", config);
+    }
 }
 
 export default new EmployeeService()

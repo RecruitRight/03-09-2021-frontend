@@ -1,7 +1,5 @@
-import axios from 'axios';
-import React, { Component,defaultValue} from 'react';
+import React, { Component} from 'react';
 import EmployeeService from '../services/EmployeeService';
-import UploadFile from './UploadFile';
 import { Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
 import FooterComponent from './FooterComponent';
 import './GlobalVariable';
@@ -114,7 +112,7 @@ class EditProfileComponent extends Component {
         if (!pattern.test(input["contact"])) {
           isValid = false;
           errors["contact"] = "Please enter only number.";
-        } else if (input["contact"].length != 10) {
+        } else if (input["contact"].length !== 10) {
           isValid = false;
           errors["contact"] = "Please enter valid phone number.";
         }
@@ -135,6 +133,7 @@ class EditProfileComponent extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}

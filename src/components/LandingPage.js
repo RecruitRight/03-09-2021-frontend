@@ -1,29 +1,15 @@
 import React, { Component } from "react";
-import NavBar from "../dashboard/NavBar";
+import {withRouter } from "react-router-dom";
 import {
   Navbar,
   Container,
   Nav,
-  NavDropdown,
-  Card,
-  Button,
-  CardDeck,
+  NavDropdown
 } from "react-bootstrap";
 import "./GlobalVariable";
-import { Grid, Segment, List, Header, Image } from "semantic-ui-react";
+import { Grid, Segment, List, Header } from "semantic-ui-react";
 import "../App.css";
 import EmployeeService from "../services/EmployeeService";
-
-const style = {
-  h3: {
-    marginTop: "2em",
-    padding: "2em 0em",
-    fontSize: "2em",
-  },
-  h1: {
-    fontSize: "1.5em",
-  },
-};
 
 class LandingPage extends Component {
   constructor(props) {
@@ -77,7 +63,6 @@ uploadProfile = (e) => {
     this.props.history.push('/LandingPage');
 }
 
-
   render() {
     console.log("title"+(window.firstName + " " + window.lastName));
     return (
@@ -88,6 +73,7 @@ uploadProfile = (e) => {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
@@ -128,15 +114,15 @@ uploadProfile = (e) => {
           </Container>
         </Navbar>
         <div className="masthead segment bg1">
-          <img src="/images/welcome.png" width="1600" height="650" />
+          <img alt="" src="/images/welcome.png" width="1600" height="650" />
         </div>
         <div
         style={{
           padding: "4em 0em"
-        }}>
+        }} id="CardsYO">
         </div>
         <div>
-          <div className="container d-flex justify-content-center">
+          <div className="container d-flex justify-content-center" >
             <div className="row">
               <div className="col-md-4">
                 <div className="card text-center d-flex">
@@ -174,7 +160,7 @@ uploadProfile = (e) => {
               </div>
               <div className="col-md-4">
                 <div className="card text-center">
-                  <div className= "overflow">
+                  <div className= "overflow" >
                     <img
                       src="/images/Status.png"
                       alt="Image 1"
@@ -195,7 +181,7 @@ uploadProfile = (e) => {
         <Segment
         inverted
         vertical
-        style={{ margin: "5em 0em 0em", padding: "5em 20em" }}
+        style={{ margin: "5em 0em 0em", padding: "4em 20em" }}
       >
         <Container className="text-center">
           <Grid divided inverted stackable>
@@ -232,4 +218,4 @@ uploadProfile = (e) => {
   }
 }
 
-export default LandingPage;
+export default withRouter(LandingPage);

@@ -1,9 +1,9 @@
 /* eslint-disable */
-import React, { Component } from 'react'
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import React from 'react'
+import { Navbar, Container, Nav} from 'react-bootstrap';
 import EmployeeService from '../services/EmployeeService';
 import './GlobalVariable';
-import { Redirect } from 'react-router';
+import { withRouter} from 'react-router-dom';
 import {
   Button,
   Form,
@@ -11,9 +11,7 @@ import {
   Header,
   Image,
   Message,
-  Segment,
-  Dropdown,
-  Select,
+  Segment
 } from "semantic-ui-react";
 import FooterComponent from './FooterComponent';
 
@@ -37,7 +35,6 @@ class Login extends React.Component {
     this.loginEmp = this.loginEmp.bind(this);
     this.home = this.home.bind(this);
     this.signUp = this.signUp.bind(this);
-    
   }
 
   changeUserIdHandler = (event) => {
@@ -55,6 +52,7 @@ class Login extends React.Component {
 
   loginEmp = (e) => {
     e.preventDefault();
+    
     if (this.validate()) {
       let employee = {
         userId: this.state.userId,
@@ -65,8 +63,6 @@ class Login extends React.Component {
 
       EmployeeService.login(employee).then((res) => {
         let s = res.data;
-          
-            
         if (s.booleanMsg) {
           localStorage.clear();
             localStorage.setItem('token',s.jwtToken);
@@ -80,7 +76,7 @@ class Login extends React.Component {
           window.firstName=ss.firstName;
           window.lastName=ss.lastName;
           window.contact=ss.contact;
-          
+
           if (this.state.userType === "Candidate") {
             this.props.history.push("/LandingPage");
             alert("Login Successful");
@@ -183,7 +179,7 @@ home = (e) => {
                 <Nav className="me-auto">
                   <Nav.Link>|</Nav.Link>
                   <Nav.Link onClick={this.signUp}>
-                    Create an Account?
+                    Sign Up
                   </Nav.Link>
                 </Nav>
               </Nav>
@@ -222,13 +218,6 @@ home = (e) => {
                 onChange={this.changePasswordHandler}
                 required="required"
               />
-              {/*<Select
-              fluid
-                placeholder='Choose UserType'
-                selection
-                options={UserTypeOptions}
-                onChange={this.selectUserType.bind(this)} required="required"
-              />*/}
               <div>
                 <select
                   class="form-select"
@@ -251,8 +240,7 @@ home = (e) => {
                 fluid
                 size="large"
                 disabled={!this.state.userId || !this.state.password || !this.state.userType}
-                onClick={this.loginEmp}
-              >
+                onClick={this.loginEmp}>
                 Login
               </Button>
             </Segment>
@@ -268,4 +256,4 @@ home = (e) => {
   }
 }
 
-export default Login;
+export default withRouter(Login);

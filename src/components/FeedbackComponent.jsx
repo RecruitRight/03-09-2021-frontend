@@ -10,12 +10,12 @@ class FeedbackComponent extends Component {
         this.state = {
             userId: '',
             reqId: '',
-            comments: '',
+            remarks: '',
             status: ''
         }
         this.changeReqId = this.changeReqId.bind(this);
         this.changeUserId = this.changeUserId.bind(this);
-        this.changeComments = this.changeComments.bind(this);
+        this.changeRemarks = this.changeRemarks.bind(this);
         this.selectStatus = this.selectStatus.bind(this);
     }
 
@@ -27,8 +27,8 @@ class FeedbackComponent extends Component {
         this.setState({userId: event.target.value});
     }
 
-    changeComments= (event) => {
-        this.setState({comments: event.target.value});
+    changeRemarks= (event) => {
+        this.setState({remarks: event.target.value});
     }
 
     selectStatus= (e)=> {
@@ -42,11 +42,11 @@ class FeedbackComponent extends Component {
 
     sendFeedback = (e) => {
         e.preventDefault();
-        let employee = {userId:this.state.userId, reqId:this.state.reqId, comments: this.state.comments, status: this.state.status};
+        let employee = {userId:this.state.userId, reqId:this.state.reqId, remarks: this.state.remarks, status: this.state.status};
         console.log('employee => ' + JSON.stringify(employee));
 
         // step 5
-        EmployeeService.feedBack(employee).then(res =>{
+        EmployeeService.feedback(employee).then(res =>{
             let s=res.data;
             if(s.booleanMsg){
             this.props.history.push('/EmployeeHomeComponent');
@@ -112,6 +112,7 @@ class FeedbackComponent extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
@@ -121,6 +122,8 @@ class FeedbackComponent extends Component {
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.viewReqPanelist}>All Requirements</Nav.Link>
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.feedback}>Feedback</Nav.Link>
               </Nav>
@@ -177,13 +180,13 @@ class FeedbackComponent extends Component {
                                         </select>
                                     </div>
                                     <br></br>
-                                        <label style={{fontSize:16}}> Comments: </label><br></br>
-                                        <textarea name="Comments" className="form-control" 
-                                            value={this.state.comments} onChange={this.changeComments} required/>
+                                        <label style={{fontSize:16}}> Remarks: </label><br></br>
+                                        <textarea name="Remarks" className="form-control" 
+                                            value={this.state.remarks} onChange={this.changeRemarks} required/>
                                   
                                     <br></br>
                                     <div class="text-center">
-                                    <button className="btn btn-primary" disabled={!this.state.reqId || !this.state.userId || !this.state.status || !this.state.comments} onClick={this.sendFeedback}>Submit</button>
+                                    <button className="btn btn-primary" disabled={!this.state.reqId || !this.state.userId || !this.state.status || !this.state.remarks} onClick={this.sendFeedback}>Submit</button>
                                     <button className="btn btn-primary" onClick={this.cancel} style={{marginLeft: "10px"}}>Cancel</button>
                                     </div>
                                 </form>

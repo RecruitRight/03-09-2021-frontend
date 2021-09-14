@@ -6,7 +6,7 @@ import EmployeeService from '../services/EmployeeService';
 import { Header,Table} from "semantic-ui-react";
 import FooterComponent from './FooterComponent';
 
-class   ViewRequirementsPanelist extends Component {
+class   ViewAllUserProfiles extends Component {
     constructor() {
         super();
         this.state = { 
@@ -18,7 +18,7 @@ class   ViewRequirementsPanelist extends Component {
     componentDidMount(){
         let employee = {sessionId:global.sessionId} ;
         console.log(employee);
-        EmployeeService.allRequirement(employee).then(res => {
+        EmployeeService.AllActiveUserProfiles(employee).then(res => {
             let s=res.data;
             console.log(s);
             console.log(s.requirements);
@@ -46,44 +46,41 @@ class   ViewRequirementsPanelist extends Component {
     
       viewProfile= (e) => {
         e.preventDefault();
-        this.props.history.push('/ProfileComponent');
+        this.props.history.push('/ProfileRMG');
       };
     
       editProfile = (e) => {
         e.preventDefault();
-        this.props.history.push('/EditProfileComponent');
+        this.props.history.push('/EditProfileRMG');
     }
       uploadProfile = (e) => {
       e.preventDefault();
-      this.props.history.push('/UploadFile');
+      this.props.history.push('/UploadProfileRMG');
     }
     
-    feedback=(e) =>{
+    viewReq = (e) => {
       e.preventDefault();
-      this.props.history.push('/FeedbackComponent');
+      this.props.history.push('/ViewRequirements');
     }
     
-    viewReqPanelist = (e) => {
+    uploadedProfiles = (e) => {
       e.preventDefault();
-      this.props.history.push('/ViewRequirementsPanelist');
+      this.props.history.push('/RMGUploadedProfiles');
+    }
+    
+    viewAllUP = (e) => {
+      e.preventDefault();
+      this.props.history.push('/ViewAllUserProfiles');
+    }
+    
+    RMGViewAllReq = (e) => {
+      e.preventDefault();
+      this.props.history.push('/RMGViewAllRequirements');
     }
     
       home = (e) => {
-          e.preventDefault();
-          this.props.history.push('/EmployeeHomeComponent');
-      }
-  
-    all = (e) => {
         e.preventDefault();
-        this.state.requirements=[];
-        let employee = {sessionId:global.sessionId} ;
-        console.log(employee);
-        EmployeeService.allRequirement(employee).then(res => {
-            let s=res.data;
-            console.log(s);
-            console.log(s.requirements);
-            this.setState({requirements:s.requirements});
-        })
+        this.props.history.push('/RMGHomeComponent');
     }
 
     active = (e) => {
@@ -91,7 +88,7 @@ class   ViewRequirementsPanelist extends Component {
         this.state.requirements=[];
         let employee = {sessionId:global.sessionId} ;
         console.log(employee);
-        EmployeeService.fetchAllActiveRequirements(employee).then(res => {
+        EmployeeService.AllActiveUserProfiles(employee).then(res => {
             let s=res.data;
             console.log(s);
             console.log(s.requirements);
@@ -99,12 +96,12 @@ class   ViewRequirementsPanelist extends Component {
         })
     }
 
-    closed = (e) => {
+    selected = (e) => {
         e.preventDefault();
         this.state.requirements=[];
         let employee = {sessionId:global.sessionId} ;
         console.log(employee);
-        EmployeeService.fetchAllClosedRequirements(employee).then(res => {
+        EmployeeService.AllSelectedUserProfiles(employee).then(res => {
             let s=res.data;
             console.log(s);
             console.log(s.requirements);
@@ -117,7 +114,7 @@ class   ViewRequirementsPanelist extends Component {
         this.state.requirements=[];
         let employee = {sessionId:global.sessionId} ;
         console.log(employee);
-        EmployeeService.fetchAllInProgressRequirements(employee).then(res => {
+        EmployeeService.AllInProgressUserProfiles(employee).then(res => {
             let s=res.data;
             console.log(s);
             console.log(s.requirements);
@@ -130,14 +127,9 @@ class   ViewRequirementsPanelist extends Component {
             <Table.Row key={index}>
                 <Table.Cell>{req.reqId}</Table.Cell>
                 <Table.Cell>{req.userId}</Table.Cell>
-                <Table.Cell>{req.isu}</Table.Cell>
-                <Table.Cell>{req.subIsu}</Table.Cell>
-                <Table.Cell>{req.projectName}</Table.Cell>
-                <Table.Cell>{req.jobRole}</Table.Cell>
-                <Table.Cell>{req.jobRoleType}</Table.Cell>
-                <Table.Cell>{req.techStack}</Table.Cell>
-                <Table.Cell>{req.experience}</Table.Cell>
-                <Table.Cell>{req.status}</Table.Cell>
+                <Table.Cell>{req.name}</Table.Cell>
+                <Table.Cell>{req.contact}</Table.Cell>
+                <Table.Cell>{req.profileScore}</Table.Cell>
             </Table.Row>
         )
     }
@@ -145,12 +137,13 @@ class   ViewRequirementsPanelist extends Component {
     render() { 
         return ( 
             <div className="page-wrap">
-            <Navbar bg="dark" variant="dark" fixed="top">
+              <Navbar bg="dark" variant="dark" fixed="top">
           <Container>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
@@ -160,10 +153,24 @@ class   ViewRequirementsPanelist extends Component {
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
-                <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.viewReqPanelist}>All Requirements</Nav.Link>
-                <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.feedback}>Feedback</Nav.Link>
+                <NavDropdown
+                    title="Services"
+                    id="basic-nav-dropdown"
+                  >
+                    <NavDropdown.Item onClick={this.uploadProfile}>
+                      Upload Candidate Profiles
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.uploadedProfiles}>
+                    Your Uploaded Profiles
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={this.viewAllUP}>
+                    View All User Profiles
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.RMGViewAllReq}>
+                    View All Requirements
+                    </NavDropdown.Item>
+                  </NavDropdown>
               </Nav>
               <Nav>
               <NavDropdown
@@ -192,7 +199,7 @@ class   ViewRequirementsPanelist extends Component {
         <div className="container" style={{marginTop:"2em"}}>
         <b><Header
             as="h1"
-            content="View All Requirements"
+            content="View All User Profiles"
             style={{
               fontWeight: "normal",
               textAlign:"center",
@@ -202,9 +209,8 @@ class   ViewRequirementsPanelist extends Component {
           /></b>
           
             <DropdownButton id="dropdown-item-button" title="Filter">
-            <Dropdown.Item as="button" onClick={this.all}>All</Dropdown.Item>
             <Dropdown.Item as="button" onClick={this.active}>Active</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={this.closed}>Closed</Dropdown.Item>
+                <Dropdown.Item as="button" onClick={this.selected}>Selected</Dropdown.Item>
                 <Dropdown.Item as="button" onClick={this.progress}>In Progress</Dropdown.Item>
             </DropdownButton>
 <br></br>
@@ -212,15 +218,10 @@ class   ViewRequirementsPanelist extends Component {
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>Requirement Id</Table.HeaderCell>
-                        <Table.HeaderCell>Posted By</Table.HeaderCell>
-                        <Table.HeaderCell>ISU</Table.HeaderCell>
-                        <Table.HeaderCell>Sub-ISU</Table.HeaderCell>
-                        <Table.HeaderCell>Project Name</Table.HeaderCell>
-                        <Table.HeaderCell>Job Role</Table.HeaderCell>
-                        <Table.HeaderCell>Job Role Type</Table.HeaderCell>
-                        <Table.HeaderCell>Tech Stack</Table.HeaderCell>
-                        <Table.HeaderCell>Experience</Table.HeaderCell>
-                        <Table.HeaderCell>Status</Table.HeaderCell>
+                        <Table.HeaderCell>User Id</Table.HeaderCell>
+                        <Table.HeaderCell>Name</Table.HeaderCell>
+                        <Table.HeaderCell>Contact</Table.HeaderCell>
+                        <Table.HeaderCell>Profile Score</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -233,4 +234,4 @@ class   ViewRequirementsPanelist extends Component {
     }
 }
  
-export default ViewRequirementsPanelist;
+export default ViewAllUserProfiles;
