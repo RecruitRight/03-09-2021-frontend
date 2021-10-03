@@ -2,6 +2,7 @@ import EmployeeService from '../services/EmployeeService';
 import React,{Component} from 'react';
 import FooterComponent from './FooterComponent';
 import { Navbar, Container, Nav, NavDropdown} from 'react-bootstrap';
+import Pdf from '../SampleResume.pdf';
 
 class UploadProfileRMG extends Component {
 	constructor(props) {
@@ -64,11 +65,6 @@ viewAllUP = (e) => {
   this.props.history.push('/ViewAllUserProfiles');
 }
 
-RMGViewAllReq = (e) => {
-  e.preventDefault();
-  this.props.history.push('/RMGViewAllRequirements');
-}
-
   home = (e) => {
     e.preventDefault();
     this.props.history.push('/RMGHomeComponent');
@@ -87,7 +83,14 @@ onFileUpload = async e => {
         let s=res.data;
         
         if(s.booleanMsg){
-            alert("Upload Successful");
+            console.log(s.incorrectProfiles);
+            if(s.incorrectProfiles){
+              alert("Uploaded all the files, except "+s.incorrectProfiles);
+            }
+            else{
+              alert("Upload Successful");
+              this.props.history.push('/RMGUploadedProfiles');
+            }
         }
         else{
             alert("Upload File");
@@ -125,14 +128,11 @@ onFileUpload = async e => {
                       Upload Candidate Profiles
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.uploadedProfiles}>
-                    Your Uploaded Profiles
+                    View User Profiles
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={this.viewAllUP}>
-                    View All User Profiles
-                    </NavDropdown.Item>
-                    <NavDropdown.Item onClick={this.RMGViewAllReq}>
-                    View All Requirements
+                    View All Users Profiles
                     </NavDropdown.Item>
                   </NavDropdown>
               </Nav>
@@ -174,7 +174,9 @@ onFileUpload = async e => {
         </div>
         <div>
 				<input type="file" onChange={(e) => this.onFileChange(e)} accept="application/pdf" multiple="multiple"/>
-				<button type="button" class="btn btn-primary" onClick={this.onFileUpload}>Upload</button>
+				<button type="button" class="btn btn-primary" onClick={this.onFileUpload}>Upload</button><br></br>
+        <br></br><br></br>
+        <a href = {Pdf} target = "_blank">View Sample Pdf</a>
 			</div>
       </form>
     </div>

@@ -100,6 +100,11 @@ class EditProfileComponent extends Component {
       this.props.history.push("/LandingPage");
     };
 
+    CandidateViewAllReq = (e) =>{
+      e.preventDefault();
+      this.props.history.push('/CandidateViewAllRequirements');
+  }
+
     validate() {
       let input = {
         contact: this.state.contact
@@ -145,10 +150,12 @@ class EditProfileComponent extends Component {
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.CandidateProfileStatus}>Profile Status</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.CandidateViewAllReq}>View All Requirements</Nav.Link>
               </Nav>
               <Nav>
               <NavDropdown
-                    title={window.firstName + " " + window.lastName}
+                    title={window.firstName+" "+window.lastName}
                     id="basic-nav-dropdown"
                     style={{ marginLeft: "20" }}
                   >

@@ -2,6 +2,7 @@ import EmployeeService from "../services/EmployeeService";
 import React, { Component } from "react";
 import FooterComponent from "./FooterComponent";
 import { Navbar, Container, Nav, NavDropdown} from "react-bootstrap";
+import Pdf from '../SampleResume.pdf';
 
 class UploadFile extends Component {
   state = {
@@ -24,8 +25,10 @@ class UploadFile extends Component {
     console.log(this.state.resumeList);
     EmployeeService.Upload(formData).then((res) => {
       let s = res.data;
-      if (s.booleanMsg) {
+      if (s.booleanMsg) 
+      {
         alert("Uploaded Successfully");
+        this.props.history.push('/CandidateProfileStatus');
       } else {alert("Upload Fail!");
      }
     });
@@ -58,6 +61,11 @@ class UploadFile extends Component {
     
   };
 
+  CandidateViewAllReq = (e) =>{
+    e.preventDefault();
+    this.props.history.push('/CandidateViewAllRequirements');
+  }
+
   uploadProfile = () => {
     this.props.history.push("/UploadFile");
     
@@ -70,6 +78,24 @@ class UploadFile extends Component {
   viewProfile = () => {
     this.props.history.push("/ProfileComponent");
     
+  };
+
+  logout = (e) => {
+    e.preventDefault();
+      EmployeeService.logout().then((res) => {
+        let s = res.data;
+        if (s.booleanMsg) {
+          window.userId = "";
+          window.userType = "";
+          window.firstName = "";
+          window.lastName = "";
+          window.contact = "";
+          window.sessionId = "";
+          localStorage.clear();
+          this.props.history.push('/Home');
+        } 
+        
+      });
   };
 
   home=()=>{
@@ -97,9 +123,9 @@ class UploadFile extends Component {
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.CandidateProfileStatus}>
-                  Profile Status
-                </Nav.Link>
+                <Nav.Link onClick={this.CandidateProfileStatus}>Profile Status</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.CandidateViewAllReq}>View All Requirements</Nav.Link>
               </Nav>
               <Nav>
                 <NavDropdown
@@ -155,6 +181,9 @@ class UploadFile extends Component {
                     >
                       Upload
                     </button>
+                    <br></br>
+                    <br></br><br></br>
+                    <a href = {Pdf} target = "_blank">View Sample Pdf</a>
                   </div>
                 </form>
               </div>

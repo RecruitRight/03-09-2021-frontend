@@ -31,13 +31,24 @@ class LandingPage extends Component {
           window.firstName = "";
           window.lastName = "";
           window.contact = "";
-          window.sessionId = "";
           localStorage.clear();
           this.props.history.push('/Home');
         } 
         
       });
   };
+  /*
+  componentDidMount= (e) => {
+      EmployeeService.getDetails().then(res =>{
+      let s=res.data;
+      console.log('employee => ' + JSON.stringify(s));
+      console.log("firstName "+ res.data.user.firstName);
+      console.log("firstName "+ s['firstName']);
+      this.state.firstName=res.data.user.firstName;
+      console.log("firstName1 "+ this.state.firstName);
+      window.firstName =res.data.user.firstName;
+  });
+}*/
 
   viewProfile= (e) => {
     e.preventDefault();
@@ -63,8 +74,12 @@ uploadProfile = (e) => {
     this.props.history.push('/LandingPage');
 }
 
+CandidateViewAllReq = (e) =>{
+  e.preventDefault();
+  this.props.history.push('/CandidateViewAllRequirements');
+}
+
   render() {
-    console.log("title"+(window.firstName + " " + window.lastName));
     return (
       <div>
       <Navbar bg="dark" variant="dark" fixed="top">
@@ -85,10 +100,12 @@ uploadProfile = (e) => {
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.CandidateProfileStatus}>Profile Status</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.CandidateViewAllReq}>View All Requirements</Nav.Link>
               </Nav>
               <Nav>
               <NavDropdown
-                    title={window.firstName + " " + window.lastName}
+                    title={window.firstName + " "+window.lastName}
                     id="basic-nav-dropdown"
                     style={{ marginLeft: "20" }}
                   >

@@ -10,6 +10,15 @@ class EmployeeService {
         return axios.post("http://localhost:8080/login", employee);
     }
 
+    getDetails(){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.get("http://localhost:8080/user/getDetails",config);
+    }
+
     logout(employee){
         const config = {
             headers: {
@@ -177,7 +186,7 @@ class EmployeeService {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
         };
-        return axios.get("http://localhost:8080//rmg/getActiveUserProfiles", config);
+        return axios.get("http://localhost:8080/rmg/getActiveUserProfiles", config);
     }
 
     SelectedUserProfiles(employee){
@@ -198,7 +207,7 @@ class EmployeeService {
         return axios.get("http://localhost:8080/rmg/getInProgressUserProfiles", config);
     }
 
-    AllActiveUserProfiles(employee){
+    AllActiveUserProfiles(){
         const config = {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token')

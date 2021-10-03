@@ -61,11 +61,6 @@ viewAllUP = (e) => {
   this.props.history.push('/ViewAllUserProfiles');
 }
 
-RMGViewAllReq = (e) => {
-  e.preventDefault();
-  this.props.history.push('/RMGViewAllRequirements');
-}
-
   home = (e) => {
     e.preventDefault();
     this.props.history.push('/RMGHomeComponent');
@@ -99,16 +94,12 @@ RMGViewAllReq = (e) => {
                       Upload Candidate Profiles
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.uploadedProfiles}>
-                    Your Uploaded Profiles
+                    View User Profiles
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={this.viewAllUP}>
-                    View All User Profiles
+                    View All Users Profiles
                     </NavDropdown.Item>
-                    <NavDropdown.Item onClick={this.RMGViewAllReq}>
-                    View All Requirements
-                    </NavDropdown.Item>
-
                   </NavDropdown>
               </Nav>
               <Nav>
@@ -189,8 +180,8 @@ RMGViewAllReq = (e) => {
                     />
                   </div>
                   <div className="card-body text-dark">
-                    <p classsName="card-text text-secondary">Check out all the requirements</p>
-                    <a onClick={this.RMGViewAllReq} className="btn btn-outline-primary" href="#">
+                    <p classsName="card-text text-secondary">Check out your profiles</p>
+                    <a onClick={this.uploadedProfiles} className="btn btn-outline-primary" href="#">
                       View
                     </a>
                   </div>

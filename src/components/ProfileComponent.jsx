@@ -18,6 +18,11 @@ class ProfileComponent extends Component {
     
   };
 
+  CandidateViewAllReq = (e) =>{
+    e.preventDefault();
+    this.props.history.push('/CandidateViewAllRequirements');
+  }
+
   editProfile = () => {
     this.props.history.push("/EditProfileComponent");
   };
@@ -74,6 +79,8 @@ logout = (e) => {
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.CandidateProfileStatus}>Profile Status</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.CandidateViewAllReq}>View All Requirements</Nav.Link>
               </Nav>
               <Nav>
               <NavDropdown

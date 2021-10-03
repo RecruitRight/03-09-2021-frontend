@@ -22,7 +22,7 @@ class RMGUploadedProfiles extends Component {
           let s=res.data;
           console.log(s);
           console.log(s.requirements);
-          this.setState({requirements:s.requirements});
+          this.setState({requirements:s.userProfiles});
       })
   }
     
@@ -74,11 +74,6 @@ class RMGUploadedProfiles extends Component {
     this.props.history.push('/ViewAllUserProfiles');
   }
   
-  RMGViewAllReq = (e) => {
-    e.preventDefault();
-    this.props.history.push('/RMGViewAllRequirements');
-  }
-  
     home = (e) => {
       e.preventDefault();
       this.props.history.push('/RMGHomeComponent');
@@ -93,7 +88,7 @@ class RMGUploadedProfiles extends Component {
         let s=res.data;
         console.log(s);
         console.log(s.requirements);
-        this.setState({requirements:s.requirements});
+        this.setState({requirements:s.userProfileResponse});
     })
 }
 
@@ -106,7 +101,7 @@ class RMGUploadedProfiles extends Component {
         let s=res.data;
         console.log(s);
         console.log(s.requirements);
-        this.setState({requirements:s.requirements});
+        this.setState({requirements:s.userProfiles});
     })
 }
 
@@ -119,7 +114,7 @@ selected = (e) => {
         let s=res.data;
         console.log(s);
         console.log(s.requirements);
-        this.setState({requirements:s.requirements});
+        this.setState({requirements:s.userProfiles});
     })
 }
 
@@ -132,18 +127,18 @@ progress = (e) => {
         let s=res.data;
         console.log(s);
         console.log(s.requirements);
-        this.setState({requirements:s.requirements});
+        this.setState({requirements:s.userProfiles});
     })
 }
 
 renderRequirement = (req,index) => {
   return(
       <Table.Row key={index}>
-          <Table.Cell>{req.reqId}</Table.Cell>
           <Table.Cell>{req.userId}</Table.Cell>
           <Table.Cell>{req.name}</Table.Cell>
           <Table.Cell>{req.contact}</Table.Cell>
-          <Table.Cell>{req.profileScore}</Table.Cell>
+          <Table.Cell>{req.status}</Table.Cell>
+          
       </Table.Row>
   )
 }
@@ -175,14 +170,11 @@ renderRequirement = (req,index) => {
                       Upload Candidate Profiles
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.uploadedProfiles}>
-                    Your Uploaded Profiles
+                    View User Profiles
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={this.viewAllUP}>
-                    View All User Profiles
-                    </NavDropdown.Item>
-                    <NavDropdown.Item onClick={this.RMGViewAllReq}>
-                    View All Requirements
+                    View All Users Profiles
                     </NavDropdown.Item>
                   </NavDropdown>
               </Nav>
@@ -212,7 +204,7 @@ renderRequirement = (req,index) => {
         <div className="container" style={{marginTop:"2em"}}>
         <b><Header
             as="h1"
-            content="Your Uploaded Profiles"
+            content="View User Profiles"
             style={{
               fontWeight: "normal",
               textAlign:"center",
@@ -231,11 +223,10 @@ renderRequirement = (req,index) => {
             <ReactBootstrap.Table stripped bordered hover>
                 <Table.Header>
                     <Table.Row>
-                    <Table.HeaderCell>Requirement Id</Table.HeaderCell>
                         <Table.HeaderCell>User Id</Table.HeaderCell>
                         <Table.HeaderCell>Name</Table.HeaderCell>
                         <Table.HeaderCell>Contact</Table.HeaderCell>
-                        <Table.HeaderCell>Profile Score</Table.HeaderCell>
+                        <Table.HeaderCell>Status</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>

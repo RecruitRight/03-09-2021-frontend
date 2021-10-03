@@ -32,7 +32,7 @@ import ViewAllRequirements from './components/ViewAllRequirements';
 import Error from './components/Error';
 import RMGUploadedProfiles from './components/RMGUploadedProfiles';
 import ViewRequirementsEligibleProfiles from './components/ViewRequirementsEligibleProfiles';
-import RMGViewAllRequirements from './components/RMGViewAllRequirements';
+import CandidateViewAllRequirements from './components/CandidateViewAllRequirements';
 import ViewAllUserProfiles from './components/ViewAllUserProfiles';
 
 class App extends React.Component {
@@ -82,7 +82,7 @@ render(){
                           <Route path = "/ViewAllRequirements" exact component = {ViewAllRequirements}></Route>
                           <Route path = "/ViewRequirementsEligibleProfiles" exact component = {ViewRequirementsEligibleProfiles}></Route>
                           <Route path = "/RMGUploadedProfiles" component = {RMGUploadedProfiles}></Route>
-                          <Route path = "/RMGViewAllRequirements" component = {RMGViewAllRequirements}></Route>
+                          <Route path = "/CandidateViewAllRequirements" component = {CandidateViewAllRequirements}></Route>
                           <Route path = "/ViewAllUserProfiles" component = {ViewAllUserProfiles}></Route>
                           <Route component={Error} />
                     </Switch>

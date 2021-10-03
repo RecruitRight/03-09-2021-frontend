@@ -229,8 +229,8 @@ class PostRequirementComponent extends Component {
         EmployeeService.postRequirement(details).then(res =>{
             let s=res.data;
             if(s.booleanMsg){
-            this.props.history.push('/POCHomeComponent');
-            alert("Posted requirement successfully")
+            this.props.history.push('/ViewRequirements');
+            alert("Posted requirement successfully, Id: "+s.reqId)
             }
             else{this.props.history.push('/PostRequirementComponent');
                 alert("Post requirements fail");

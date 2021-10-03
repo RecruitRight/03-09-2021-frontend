@@ -86,11 +86,6 @@ class EditProfileRMG extends Component {
     e.preventDefault();
     this.props.history.push('/ViewAllUserProfiles');
   }
-  
-  RMGViewAllReq = (e) => {
-    e.preventDefault();
-    this.props.history.push('/RMGViewAllRequirements');
-  }
 
     logout = (e) => {
       e.preventDefault();
@@ -158,17 +153,14 @@ class EditProfileRMG extends Component {
                     id="basic-nav-dropdown"
                   >
                     <NavDropdown.Item onClick={this.uploadProfile}>
-                      Upload Candidate Profiles
+                    Upload Candidate Profiles
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.uploadedProfiles}>
-                    Your Uploaded Profiles
+                    View User Profiles
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={this.viewAllUP}>
-                    View All User Profiles
-                    </NavDropdown.Item>
-                    <NavDropdown.Item onClick={this.RMGViewAllReq}>
-                    View All Requirements
+                    View All Users Profiles
                     </NavDropdown.Item>
                   </NavDropdown>
               </Nav>

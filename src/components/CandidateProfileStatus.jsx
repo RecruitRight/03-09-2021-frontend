@@ -63,6 +63,10 @@ class CandidateProfileStatus extends Component {
         this.props.history.push('/CandidateProfileStatus');
     }
 
+    CandidateViewAllReq = (e) =>{
+        e.preventDefault();
+        this.props.history.push('/CandidateViewAllRequirements');
+    }
       home = (e) => {
         e.preventDefault();
         this.props.history.push('/LandingPage');
@@ -99,6 +103,8 @@ class CandidateProfileStatus extends Component {
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.CandidateProfileStatus}>Profile Status</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.CandidateViewAllReq}>View All Requirements</Nav.Link>
               </Nav>
               <Nav>
               <NavDropdown

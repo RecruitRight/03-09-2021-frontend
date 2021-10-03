@@ -22,11 +22,6 @@ signUp = (e) => {
     this.props.history.push('/signup');
 }
 
-home = (e) => {
-    e.preventDefault();
-    this.props.history.push('/home');
-}
-
 login = (e) => {
   e.preventDefault();
   this.props.history.push('/login');
@@ -49,7 +44,7 @@ login = (e) => {
             </Navbar.Brand>
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
-                <Nav.Link onClick={this.home}>Home</Nav.Link>
+                <Nav.Link href="#home">Home</Nav.Link>
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link href="#AboutUs">About Us</Nav.Link>
                 <Nav.Link>|</Nav.Link>
@@ -70,7 +65,7 @@ login = (e) => {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-    
+      <div id="home"></div>
       <Segment
         style={{
           padding: "6em 0em",
@@ -79,7 +74,6 @@ login = (e) => {
         }}
         vertical
       >
-        
         <Container text>
           <Header
             as="h1"
@@ -106,13 +100,13 @@ login = (e) => {
             }}
           /><br></br>
           <div className="text-center">
-          <Button as="a" size="large" href="#Services">
+          <Button as="a" size="large" onClick={this.login}>
             Get Started
           </Button>
           </div>
         </Container>
       </Segment>
-      <div style={{backgroundColor:"#f8f9fa"}} id="Services">
+      <div style={{backgroundColor:"#f8f9fa"}} >
       <br></br><br></br><br></br>
           <Header as="h1" style={{ fontSize: "2em" ,textAlign:"center"}}>
                     Our Services

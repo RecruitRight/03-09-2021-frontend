@@ -22,7 +22,7 @@ class   ViewAllUserProfiles extends Component {
             let s=res.data;
             console.log(s);
             console.log(s.requirements);
-            this.setState({requirements:s.requirements});
+            this.setState({requirements:s.userProfiles});
         })
     }
     
@@ -73,11 +73,6 @@ class   ViewAllUserProfiles extends Component {
       this.props.history.push('/ViewAllUserProfiles');
     }
     
-    RMGViewAllReq = (e) => {
-      e.preventDefault();
-      this.props.history.push('/RMGViewAllRequirements');
-    }
-    
       home = (e) => {
         e.preventDefault();
         this.props.history.push('/RMGHomeComponent');
@@ -86,13 +81,11 @@ class   ViewAllUserProfiles extends Component {
     active = (e) => {
         e.preventDefault();
         this.state.requirements=[];
-        let employee = {sessionId:global.sessionId} ;
-        console.log(employee);
-        EmployeeService.AllActiveUserProfiles(employee).then(res => {
+        EmployeeService.AllActiveUserProfiles().then(res => {
             let s=res.data;
             console.log(s);
             console.log(s.requirements);
-            this.setState({requirements:s.requirements});
+            this.setState({requirements:s.userProfiles});
         })
     }
 
@@ -105,7 +98,7 @@ class   ViewAllUserProfiles extends Component {
             let s=res.data;
             console.log(s);
             console.log(s.requirements);
-            this.setState({requirements:s.requirements});
+            this.setState({requirements:s.userProfiles});
         })
     }
 
@@ -118,18 +111,18 @@ class   ViewAllUserProfiles extends Component {
             let s=res.data;
             console.log(s);
             console.log(s.requirements);
-            this.setState({requirements:s.requirements});
+            this.setState({requirements:s.userProfiles});
         })
     }
 
     renderRequirement = (req,index) => {
         return(
             <Table.Row key={index}>
-                <Table.Cell>{req.reqId}</Table.Cell>
+                <Table.Cell>{req.uploader}</Table.Cell>
                 <Table.Cell>{req.userId}</Table.Cell>
                 <Table.Cell>{req.name}</Table.Cell>
                 <Table.Cell>{req.contact}</Table.Cell>
-                <Table.Cell>{req.profileScore}</Table.Cell>
+                <Table.Cell>{req.status}</Table.Cell>
             </Table.Row>
         )
     }
@@ -161,14 +154,11 @@ class   ViewAllUserProfiles extends Component {
                       Upload Candidate Profiles
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.uploadedProfiles}>
-                    Your Uploaded Profiles
+                    View User Profiles
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={this.viewAllUP}>
-                    View All User Profiles
-                    </NavDropdown.Item>
-                    <NavDropdown.Item onClick={this.RMGViewAllReq}>
-                    View All Requirements
+                    View All Users Profiles
                     </NavDropdown.Item>
                   </NavDropdown>
               </Nav>
@@ -217,11 +207,11 @@ class   ViewAllUserProfiles extends Component {
             <ReactBootstrap.Table stripped bordered hover>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell>Requirement Id</Table.HeaderCell>
+                        <Table.HeaderCell>Uploded By</Table.HeaderCell>
                         <Table.HeaderCell>User Id</Table.HeaderCell>
                         <Table.HeaderCell>Name</Table.HeaderCell>
                         <Table.HeaderCell>Contact</Table.HeaderCell>
-                        <Table.HeaderCell>Profile Score</Table.HeaderCell>
+                        <Table.HeaderCell>Status</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>

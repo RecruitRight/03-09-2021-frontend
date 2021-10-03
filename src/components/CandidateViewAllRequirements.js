@@ -6,7 +6,7 @@ import EmployeeService from '../services/EmployeeService';
 import { Header,Table} from "semantic-ui-react";
 import FooterComponent from './FooterComponent';
 
-class RMGViewAllRequirements extends Component {
+class CandidateViewAllRequirements extends Component {
     constructor() {
         super();
         this.state = { 
@@ -46,42 +46,32 @@ class RMGViewAllRequirements extends Component {
     
       viewProfile= (e) => {
         e.preventDefault();
-        this.props.history.push('/ProfileRMG');
+        this.props.history.push('/ProfileComponent');
       };
+    
+      CandidateViewAllReq = (e) =>{
+        e.preventDefault();
+        this.props.history.push('/CandidateViewAllRequirements');
+    }
     
       editProfile = (e) => {
         e.preventDefault();
-        this.props.history.push('/EditProfileRMG');
+        this.props.history.push('/EditProfileComponent');
     }
-      uploadProfile = (e) => {
+    uploadProfile = (e) => {
       e.preventDefault();
-      this.props.history.push('/UploadProfileRMG');
+      this.props.history.push('/UploadFile');
     }
-    
-    viewReq = (e) => {
+
+    CandidateProfileStatus = (e) => {
       e.preventDefault();
-      this.props.history.push('/ViewRequirements');
-    }
-    
-    uploadedProfiles = (e) => {
+      this.props.history.push('/CandidateProfileStatus');
+  }
+
+    home = (e) => {
       e.preventDefault();
-      this.props.history.push('/RMGUploadedProfiles');
-    }
-    
-    viewAllUP = (e) => {
-      e.preventDefault();
-      this.props.history.push('/ViewAllUserProfiles');
-    }
-    
-    RMGViewAllReq = (e) => {
-      e.preventDefault();
-      this.props.history.push('/RMGViewAllRequirements');
-    }
-    
-      home = (e) => {
-        e.preventDefault();
-        this.props.history.push('/RMGHomeComponent');
-    }
+      this.props.history.push('/LandingPage');
+  }
 
     all = (e) => {
         e.preventDefault();
@@ -161,38 +151,24 @@ class RMGViewAllRequirements extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
             <Navbar.Brand>
               <img
+                alt=""
                 src="images/logosymbol.png"
                 width="30"
                 style={{ marginRight: "1.5em"}}
-                alt =""
               />
               Recruit Right
             </Navbar.Brand>
               <Nav className="me-auto">
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.home}>Home</Nav.Link>
-                <NavDropdown
-                    title="Services"
-                    id="basic-nav-dropdown"
-                  >
-                    <NavDropdown.Item onClick={this.uploadProfile}>
-                      Upload Candidate Profiles
-                    </NavDropdown.Item>
-                    <NavDropdown.Item onClick={this.uploadedProfiles}>
-                    Your Uploaded Profiles
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={this.viewAllUP}>
-                    View All User Profiles
-                    </NavDropdown.Item>
-                    <NavDropdown.Item onClick={this.RMGViewAllReq}>
-                    View All Requirements
-                    </NavDropdown.Item>
-                  </NavDropdown>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.CandidateProfileStatus}>Profile Status</Nav.Link>
+                <Nav.Link>|</Nav.Link>
+                <Nav.Link onClick={this.CandidateViewAllRequirements}>View All Requirements</Nav.Link>
               </Nav>
               <Nav>
               <NavDropdown
-                    title={window.firstName + " " + window.lastName}
+                    title={global.firstName + " " + global.lastName}
                     id="basic-nav-dropdown"
                     style={{ marginLeft: "20" }}
                   >
@@ -201,6 +177,10 @@ class RMGViewAllRequirements extends Component {
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={this.editProfile}>
                       Edit Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item onClick={this.uploadProfile}>
+                      Upload Resume
                     </NavDropdown.Item>
                   </NavDropdown>
                 <Nav className="me-auto">
@@ -258,4 +238,4 @@ class RMGViewAllRequirements extends Component {
     }
 }
  
-export default RMGViewAllRequirements;
+export default CandidateViewAllRequirements;
