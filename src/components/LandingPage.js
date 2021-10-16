@@ -15,8 +15,8 @@ class LandingPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName:'',
-      lastName:'',
+      firstName:'Sahiti',
+      lastName:'Tadikonda',
     };
     this.logout = this.logout.bind(this);
   }
@@ -37,18 +37,17 @@ class LandingPage extends Component {
         
       });
   };
-  /*
+  
   componentDidMount= (e) => {
       EmployeeService.getDetails().then(res =>{
       let s=res.data;
       console.log('employee => ' + JSON.stringify(s));
       console.log("firstName "+ res.data.user.firstName);
-      console.log("firstName "+ s['firstName']);
-      this.state.firstName=res.data.user.firstName;
+      this.setState(this.state.firstName=res.data.user.firstName);
       console.log("firstName1 "+ this.state.firstName);
       window.firstName =res.data.user.firstName;
   });
-}*/
+}
 
   viewProfile= (e) => {
     e.preventDefault();
@@ -102,6 +101,7 @@ CandidateViewAllReq = (e) =>{
                 <Nav.Link onClick={this.CandidateProfileStatus}>Profile Status</Nav.Link>
                 <Nav.Link>|</Nav.Link>
                 <Nav.Link onClick={this.CandidateViewAllReq}>View All Requirements</Nav.Link>
+                
               </Nav>
               <Nav>
               <NavDropdown

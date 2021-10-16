@@ -233,6 +233,15 @@ class EmployeeService {
         };
         return axios.get("http://localhost:8080/getInProgressUserProfiles", config);
     }
+
+    AvailabilityStatus(employee){
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        };
+        return axios.get("http://localhost:8080/", config);
+    }
 }
 
 export default new EmployeeService()

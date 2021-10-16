@@ -34,6 +34,7 @@ import RMGUploadedProfiles from './components/RMGUploadedProfiles';
 import ViewRequirementsEligibleProfiles from './components/ViewRequirementsEligibleProfiles';
 import CandidateViewAllRequirements from './components/CandidateViewAllRequirements';
 import ViewAllUserProfiles from './components/ViewAllUserProfiles';
+import AvailabilityStatus from './components/AvailabilityStatus';
 
 class App extends React.Component {
 
@@ -84,6 +85,7 @@ render(){
                           <Route path = "/RMGUploadedProfiles" component = {RMGUploadedProfiles}></Route>
                           <Route path = "/CandidateViewAllRequirements" component = {CandidateViewAllRequirements}></Route>
                           <Route path = "/ViewAllUserProfiles" component = {ViewAllUserProfiles}></Route>
+                          <Route path = "/AvailabilityStatus" component = {AvailabilityStatus}></Route>
                           <Route component={Error} />
                     </Switch>
                 </div>

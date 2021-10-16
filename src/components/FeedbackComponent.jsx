@@ -49,10 +49,12 @@ class FeedbackComponent extends Component {
         EmployeeService.feedback(employee).then(res =>{
             let s=res.data;
             if(s.booleanMsg){
+            alert('Feedback sent successfully');
             this.props.history.push('/EmployeeHomeComponent');
             }
             else{
-                console.log("unsuccessful");
+              alert('Oops! Your Feedback did not reach us');
+              this.props.history.push('/FeedbackComponent');
             }
         });
     }
